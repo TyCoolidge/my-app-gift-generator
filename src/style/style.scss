@@ -1,0 +1,14 @@
+.custom-select select {
+  display: none; // TODO, get to work, hide original SELECT element:  https://www.w3schools.com/howto/howto_custom_select.asp //
+}
+
+// makes a square container for an img to be fitted into
+.containsImage {
+  width: 150px;
+  height: 150px;
+  border: solid 2px black;
+}
+.fitToImageContainer {
+  max-height: 100%;
+  max-width: 100%;
+}
