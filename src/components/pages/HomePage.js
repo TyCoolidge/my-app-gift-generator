@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
   return (
@@ -8,10 +9,14 @@ export default function HomePage() {
         <div className="col-6 offset-3">
           <h1 className="text-center ">Gift Generator</h1>
         </div>
-        <div className="float-left">
-          <button type="button" class="btn btn-success">
-            Success
-          </button>
+        <div className="col-12 ">
+          <Link
+            to="/login-page"
+            type="button"
+            class="float-right btn-sm btn-primary"
+          >
+            Share gift idea
+          </Link>
         </div>
       </div>
       {/* Seperate row for titles of each select menu TODO: clean up code  */}
@@ -80,6 +85,7 @@ export default function HomePage() {
           </select>
         </div>
       </div>
+      {/* Todo add style */}
       <h2 className="text-center my-5">Most Popular Gifts</h2>
       <div className="offset-4 col-6">
         <div>
