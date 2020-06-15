@@ -6,9 +6,9 @@ export default function HomePage() {
     // <!-- Example single danger button -->
     <div className="container">
       <div className="row mt-5">
-        <div className="col-6 offset-3">
+        <div className="col-xl-6 offset-xl-3 col-8 offset-2">
           <Link to="/">
-            <h1 className="text-center ">Gift Generator</h1>
+            <h2 className="text-center ">Gift Generator</h2>
           </Link>
         </div>
         <div className="col-12 ">
@@ -89,50 +89,48 @@ export default function HomePage() {
       </div>
       {/* Todo add style */}
       <h2 className="text-center my-5">Most Popular Gifts</h2>
-      <div className="offset-4 col-6">
-        <div>
+      <div className="row mb-2">
+        <div className="col-5 offset-1 col-sm-5 offset-sm-1 col-md-4 offset-md-2 col-lg-3 offset-lg-3 col-xl-3 offset-xl-3">
           {/* Placeholders for now, come back to add components */}
-          <div className="row mb-2">
-            <div className="containsImage fitToImageContainer">
-              <div className="col-5">
-                <img alt="item" />
-              </div>
-            </div>
-            <div className="col-5 ml-5">
-              <p>Name: </p>
-              <p>Description: </p>
-              <p>Price: </p>
+          <div className="containsImage fitToImageContainer">
+            <div className="col-5">
+              <img alt="item" />
             </div>
           </div>
         </div>
-        <div>
-          <div className="row mb-2">
-            <div className="containsImage fitToImageContainer">
-              <div className="col-5">
-                <img alt="item" />
-              </div>
-            </div>
-            <div className="col-5 ml-5">
-              <p>Name: </p>
-              <p>Description: </p>
-              <p>Price: </p>
-            </div>
+        <div className="">
+          <div className=" mt-1 giftInfoSize">
+            <p>Name: Placeholder</p>
+            <p>Description: Placeholder</p>
+            <p>Price: Placeholder</p>
           </div>
         </div>
-        <div>
-          <div className="row mb-2">
-            <div className="containsImage fitToImageContainer">
-              <div className="col-5">
-                <img alt="item" />
-              </div>
-            </div>
-            <div className="col-5 ml-5">
-              <p>Name: </p>
-              <p>Description: </p>
-              <p>Price: </p>
+        {/* 
+        <div className="row mb-2">
+          <div className="containsImage fitToImageContainer">
+            <div className="col-5">
+              <img alt="item" />
             </div>
           </div>
+          <div className="col-5 ml-5 mt-3 giftInfoSize">
+            <p>Name: </p>
+            <p>Description: </p>
+            <p>Price: </p>
+          </div>
         </div>
+
+        <div className="row mb-2">
+          <div className="containsImage fitToImageContainer">
+            <div className="col-5">
+              <img alt="item" />
+            </div>
+          </div>
+          <div className="col-5 ml-5 mt-3 giftInfoSize">
+            <p>Name: </p>
+            <p>Description: </p>
+            <p>Price: </p>
+          </div>
+        </div> */}
       </div>
     </div>
   );

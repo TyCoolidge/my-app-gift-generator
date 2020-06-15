@@ -4,8 +4,8 @@
 
 // makes a square container for an img to be fitted into
 .containsImage {
-  width: 150px;
-  height: 150px;
+  width: 175px;
+  height: 175px;
   border: solid 2px black;
 }
 .fitToImageContainer {
@@ -14,4 +14,47 @@
 }
 .transparent-dollar-sign {
   background-color: transparent;
+}
+.giftInfoSize {
+  font-size: 20px;
+}
+@media (max-width: 992px) {
+  h1 {
+    font-size: 36px;
+  }
+  h5 {
+    font-size: 1.1rem;
+  }
+  .containsImage {
+    width: 175px;
+    height: 175px;
+    border: solid 2px black;
+  }
+  .giftInfoSize {
+    font-size: 16px;
+  }
+}
+@media (max-width: 600px) {
+  h1 {
+    font-size: 28px;
+  }
+  h5 {
+    font-size: 0.9rem;
+  }
+  .containsImage {
+    width: 125px;
+    height: 125px;
+    border: solid 2px black;
+  }
+  .giftInfoSize {
+    font-size: 15px;
+  }
+}
+@media (max-width: 400px) {
+  h1 {
+    font-size: 24px;
+  }
+  .giftInfoSize {
+    font-size: 13px;
+  }
 }

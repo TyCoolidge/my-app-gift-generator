@@ -7,7 +7,7 @@ export default function AddGiftName() {
       <div className="row mt-5">
         <div className="col-6 offset-3">
           <Link to="/">
-            <h1 className="text-center ">Gift Generator</h1>
+            <h2 className="text-center ">Gift Generator</h2>
           </Link>
         </div>
         <div className="col-12 ">
@@ -82,6 +82,21 @@ export default function AddGiftName() {
             <label htmlFor="inputPassword" className="col-sm-2 col-form-label">
               Interest:
             </label>
+            <div className="col-sm-3">
+              <select className="custom-select">
+                <option value>Nothing Selected</option>
+                <option value="1">Arts and Crafts</option>
+                <option value="2">Collectibles</option>
+                <option value="3">Electronics</option>
+                <option value="4">Jewelry</option>
+                <option value="5">Toys</option>
+                <option value="6">Sports & Recreation</option>
+                <option value="7">Outdoors</option>
+                <option value="8">Music</option>
+                <option value="9">Fashion</option>
+                <option value="10">Games</option>
+              </select>
+            </div>
             {/* TODO add multiselect with tags, need to make a component? */}
             <div className="col-sm-3"></div>
           </div>
