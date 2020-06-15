@@ -6,7 +6,9 @@ export default function LoginPage() {
     // Make Title and Logo a component
     <div className="row mt-5">
       <div className="col-6 offset-3 mb-3">
-        <h1 className="text-center ">Gift Generator</h1>
+        <Link to="/">
+          <h1 className="text-center ">Gift Generator</h1>
+        </Link>
       </div>
       {/* add logo */}
       <div className="col-6 offset-3 mb-3">
@@ -14,7 +16,7 @@ export default function LoginPage() {
       </div>
       {/* First card */}
       <div className="col-6 offset-3">
-        <div className="card">
+        <div className="card" style={{ backgroundColor: "#D8D8D8" }}>
           <div className="card-body">
             <h2
               style={{ color: "red", fontSize: " 25px" }}
@@ -24,28 +26,32 @@ export default function LoginPage() {
             </h2>
             <form className="needs-validation">
               {/* make email and password next to form */}
-              <div class="form-group row">
-                <label for="colFormLabel" class="col-sm-4 col-form-label">
+              <div className="form-group row">
+                <label
+                  htmlFor="colFormLabel"
+                  className="col-sm-4 col-form-label"
+                >
                   Email address:
                 </label>
-                <div class="col-sm-8">
+                <div className="col-sm-8">
                   <input
                     type="email"
-                    class="form-control"
-                    id="colFormLabel"
+                    className="form-control"
                     placeholder="col-form-label"
                   />
                 </div>
               </div>
-              <div class="form-group row">
-                <label for="colFormLabel" class="col-sm-4 col-form-label">
+              <div className="form-group row">
+                <label
+                  htmlFor="colFormLabel"
+                  className="col-sm-4 col-form-label"
+                >
                   Password:
                 </label>
-                <div class="col-sm-8">
+                <div className="col-sm-8">
                   <input
                     type="password"
-                    class="form-control"
-                    id="colFormLabel"
+                    className="form-control"
                     placeholder="col-form-label"
                   />
                 </div>
@@ -56,7 +62,6 @@ export default function LoginPage() {
                   to="create-answer"
                   type="submit"
                   className="btn btn-success btn"
-                  id="logIn"
                 >
                   Log in
                 </Link>
@@ -68,63 +73,47 @@ export default function LoginPage() {
       </div>
       {/* Second gift */}
       <div className="mt-4 col-6 offset-3">
-        <div className="card">
+        <div className="card" style={{ backgroundColor: "#D8D8D8" }}>
           <div className="card-body">
-            {/* <h2 className="card-title">Nice to meet you</h2>
-            <p style={{ fontSize: "13px" }} className="mb-1">
-              Sign up for White Bear. Free forever.
-            </p>
-            <p
-              style={{ color: " blue", fontSize: "13px" }}
-              className="mb-5"
-              id="signUpText"
-            >
-              Let's get you signed up.
-            </p> */}
-
             <button
               type="button"
               className="btn btn-success btn-lg btn-block my-5"
-              id="signup"
             >
               Sign up
             </button>
             {/* <!-- Dragdown menu once click on signup --> */}
-            <div class="form-group row">
-              <label for="colFormLabel" class="col-sm-4 col-form-label">
+            <div className="form-group row">
+              <label htmlFor="colFormLabel" className="col-sm-4 col-form-label">
                 Email address:
               </label>
-              <div class="col-sm-8">
+              <div className="col-sm-8">
                 <input
                   type="email"
-                  class="form-control"
-                  id="colFormLabel"
+                  className="form-control"
                   placeholder="col-form-label"
                 />
               </div>
             </div>
-            <div class="form-group row">
-              <label for="colFormLabel" class="col-sm-4 col-form-label">
+            <div className="form-group row">
+              <label htmlFor="colFormLabel" className="col-sm-4 col-form-label">
                 Create Password:
               </label>
-              <div class="col-sm-8">
+              <div className="col-sm-8">
                 <input
                   type="password"
-                  class="form-control"
-                  id="colFormLabel"
+                  className="form-control"
                   placeholder="col-form-label"
                 />
               </div>
             </div>
-            <div class="form-group row">
-              <label for="colFormLabel" class="col-sm-4 col-form-label">
+            <div className="form-group row">
+              <label htmlFor="colFormLabel" className="col-sm-4 col-form-label">
                 Repeat Password:
               </label>
-              <div class="col-sm-8">
+              <div className="col-sm-8">
                 <input
                   type="password"
-                  class="form-control"
-                  id="colFormLabel"
+                  className="form-control"
                   placeholder="col-form-label"
                 />
               </div>
@@ -134,7 +123,6 @@ export default function LoginPage() {
                 to="/add-gift-name"
                 type="button"
                 className="float-left mt-1 btn-lg btn-success btn-block"
-                id="letsGo"
               >
                 Submit
               </Link>

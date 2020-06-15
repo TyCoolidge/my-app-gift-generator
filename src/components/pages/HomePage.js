@@ -7,13 +7,15 @@ export default function HomePage() {
     <div className="container">
       <div className="row mt-5">
         <div className="col-6 offset-3">
-          <h1 className="text-center ">Gift Generator</h1>
+          <Link to="/">
+            <h1 className="text-center ">Gift Generator</h1>
+          </Link>
         </div>
         <div className="col-12 ">
           <Link
             to="/login-page"
             type="button"
-            class="float-right btn-sm btn-primary"
+            className="float-right btn-sm btn-primary"
           >
             Share gift idea
           </Link>
@@ -46,7 +48,7 @@ export default function HomePage() {
         </div>
         <div className="col-3">
           <select className="custom-select">
-            <option selected>Nothing Selected</option>
+            <option value>Nothing Selected</option>
             <option value="1">Under 12</option>
             <option value="2">12-17</option>
             <option value="3">18-24</option>
@@ -59,7 +61,7 @@ export default function HomePage() {
         {/* Allow multiple selects */}
         <div className="col-3">
           <select className="custom-select">
-            <option selected>Nothing Selected</option>
+            <option value>Nothing Selected</option>
             <option value="1">Arts and Crafts</option>
             <option value="2">Collectibles</option>
             <option value="3">Electronics</option>
@@ -75,7 +77,7 @@ export default function HomePage() {
         {/* Maybe add dragbar to adjust range */}
         <div className="col-3">
           <select className="custom-select">
-            <option selected>Nothing Selected</option>
+            <option value>Nothing Selected</option>
             <option value="1">Under $25</option>
             <option value="2">$25-$50</option>
             <option value="3">$50-$75</option>
@@ -97,13 +99,9 @@ export default function HomePage() {
               </div>
             </div>
             <div className="col-5 ml-5">
-              <text>Name: </text>
-              <br />
-              <br />
-              <text>Description: </text>
-              <br />
-              <br />
-              <text>Price: </text>
+              <p>Name: </p>
+              <p>Description: </p>
+              <p>Price: </p>
             </div>
           </div>
         </div>
@@ -115,13 +113,9 @@ export default function HomePage() {
               </div>
             </div>
             <div className="col-5 ml-5">
-              <text>Name: </text>
-              <br />
-              <br />
-              <text>Description: </text>
-              <br />
-              <br />
-              <text>Price: </text>
+              <p>Name: </p>
+              <p>Description: </p>
+              <p>Price: </p>
             </div>
           </div>
         </div>
@@ -133,13 +127,9 @@ export default function HomePage() {
               </div>
             </div>
             <div className="col-5 ml-5">
-              <text>Name: </text>
-              <br />
-              <br />
-              <text>Description: </text>
-              <br />
-              <br />
-              <text>Price: </text>
+              <p>Name: </p>
+              <p>Description: </p>
+              <p>Price: </p>
             </div>
           </div>
         </div>
