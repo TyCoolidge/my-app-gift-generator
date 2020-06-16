@@ -5,23 +5,23 @@ export default function LoginPage() {
   return (
     // Make Title and Logo a component
     <div className="container">
-      <div className="row mt-5">
+      <div className="row my-5">
         {/* Make col a component */}
         <div className="col-xl-6 offset-xl-3 col-8 offset-2 mb-2">
           <Link to="/">
-            <h2 className="text-center ">Gift Generator</h2>
+            <h2 className="text-center titleSize ">Gift Generator</h2>
           </Link>
         </div>
         {/* add logo */}
         <div className="col-6 offset-3 mb-3">
-          <h5 className="text-center ">Let's Find the Perfect Gift!</h5>
+          <h5 className="text-center">Let's Find the Perfect Gift!</h5>
         </div>
         {/* First card */}
-        <div className="col-12">
+        <div className="col-12 col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
           <div className="card" style={{ backgroundColor: "#D8D8D8" }}>
             <div className="card-body">
               <h2
-                style={{ color: "red", fontSize: " 25px" }}
+                style={{ color: "red" }}
                 className="card-title text-center mb-5"
               >
                 Must be logged in to share gift idea
@@ -63,7 +63,7 @@ export default function LoginPage() {
                   <Link
                     to="create-answer"
                     type="submit"
-                    className="btn btn-success btn"
+                    className="btn btn-primary btn"
                   >
                     Log in
                   </Link>
@@ -73,13 +73,16 @@ export default function LoginPage() {
             </div>
           </div>
         </div>
-        {/* Second gift */}
-        <div className="mt-4 col-12">
+        {/* Second card */}
+        <div className="mt-4 col-12 col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
           <div className="card" style={{ backgroundColor: "#D8D8D8" }}>
             <div className="card-body">
+              <h2 className="card-title text-center">
+                Sign up to add your own gift idea
+              </h2>
               <button
                 type="button"
-                className="btn btn-success btn-lg btn-block my-5"
+                className="btn btn-primary btn-lg btn-block mt-3 mb-5"
               >
                 Sign up
               </button>
@@ -133,7 +136,7 @@ export default function LoginPage() {
                 <Link
                   to="/add-gift-name"
                   type="button"
-                  className="float-left mt-1 btn-lg btn-success btn-block"
+                  className="float-left mt-1 btn btn-primary btn-block"
                 >
                   Submit
                 </Link>

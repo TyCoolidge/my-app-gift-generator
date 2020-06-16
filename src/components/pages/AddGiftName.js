@@ -5,25 +5,31 @@ export default function AddGiftName() {
   return (
     <div className="container">
       <div className="row mt-5">
-        <div className="col-6 offset-3">
+        <div className="col-xl-6 offset-xl-3 col-8 offset-2">
           <Link to="/">
-            <h2 className="text-center ">Gift Generator</h2>
+            <h2 className="text-center titleSize">Gift Generator</h2>
           </Link>
         </div>
-        <div className="col-12 ">
-          <Link to="/" type="button" className="float-right btn-sm btn-primary">
-            Go back to gift generator
+        <div className="col-12 col-sm-12 col-md-12 col-lg-8 offset-lg-2 col-xl-10 offset-xl-1">
+          <Link to="/" className="float-left">
+            Go back
           </Link>
         </div>
       </div>
       {/* Title form */}
-      <div className="card border-primary mt-4">
+      <div className="card col-12 col-sm-12 col-md-12 col-lg-8 offset-lg-2 col-xl-10 offset-xl-1 border-primary mt-2 mb-4">
         <div className="card-body">
-          <div className="form-group row mt-4">
-            <label htmlFor="inputPassword" className="col-sm-2 col-form-label">
+          <h2 className="card-title text-center" style={{ fontSize: "20px" }}>
+            Add or Edit Gift
+          </h2>
+          <div className="form-group row mt-2">
+            <label
+              htmlFor="inputPassword"
+              className="col-sm-3 col-md-2 col-form-label"
+            >
               Title:
             </label>
-            <div className="col-sm-10">
+            <div className="col-sm-9 col-md-10">
               <input
                 type="title"
                 className="form-control"
@@ -33,19 +39,19 @@ export default function AddGiftName() {
           </div>
           {/* Photo insert */}
           <form className="form-group row mt-4">
-            <div className="col-sm-2">
+            <div className="col-sm-3 col-md-2">
               <label htmlFor="Photo">Photo:</label>
             </div>
-            <div className="col-sm-10">
+            <div className="col-sm-9 col-md-10">
               <input type="file" />
             </div>
           </form>
           {/* desc box */}
           <div className="form-group row mt-4">
-            <div className="col-sm-2">
+            <div className="col-sm-3 col-md-2">
               <label htmlFor="exampleFormControlTextarea1">Description:</label>
             </div>
-            <div className="col-sm-10">
+            <div className="col-sm-9 col-md-10">
               <textarea className="form-control" rows="3">
                 Enter text here...
               </textarea>
@@ -55,34 +61,36 @@ export default function AddGiftName() {
           <div className="form-group row mt-4">
             <label
               htmlFor="inputPassword"
-              className="col-sm-2 col-form-label"
-              style={{ marginRight: "3px" }}
+              className="col-sm-3 col-md-2 col-form-label"
             >
               Gender:
             </label>
-            <div class="col-sm-3 ml-4">
+            <div class="col-sm-3 col-md-3 mb-2">
               <button type="button" class="btn btn-primary btn-block">
                 Male
               </button>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-3 col-md-3 mb-2">
               <button type="button" class="btn btn-success btn-block">
                 Female
               </button>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-3 col-md-3 mb-2">
               <button type="button" class="btn btn-warning btn-block">
-                Gender Neutral
+                Neutral
               </button>
             </div>
           </div>
           {/*  */}
           {/* TODO add tag autocomplete*/}
           <div className="form-group row mt-4">
-            <label htmlFor="inputPassword" className="col-sm-2 col-form-label">
+            <label
+              htmlFor="inputPassword"
+              className="col-sm-3 col-md-2 col-form-label"
+            >
               Interest:
             </label>
-            <div className="col-sm-3">
+            <div className="col-sm-5">
               <select className="custom-select">
                 <option value>Nothing Selected</option>
                 <option value="1">Arts and Crafts</option>
@@ -101,10 +109,13 @@ export default function AddGiftName() {
             <div className="col-sm-3"></div>
           </div>
           <div className="form-group row mt-4">
-            <label htmlFor="inputPassword" className="col-sm-2 col-form-label">
+            <label
+              htmlFor="inputPassword"
+              className="col-sm-3 col-md-2 col-form-label"
+            >
               Age:
             </label>
-            <div className="col-3">
+            <div className="col-sm-4">
               <select className="custom-select">
                 <option value>-----</option>
                 <option value="1">Under 12</option>
@@ -131,19 +142,27 @@ export default function AddGiftName() {
             </div> */}
           </div>
           <div className="form-group row my-4 ">
-            <label htmlFor="inputPassword" className="col-sm-2 col-form-label">
+            <label
+              htmlFor="inputPassword"
+              className="col-sm-3 col-md-2 col-form-label"
+            >
               Price:
             </label>
-            <div className="input-group col-sm-3">
+            <div className="input-group col-sm-4">
               <div className="input-group-prepend">
                 <span class="input-group-text transparent-dollar-sign">$</span>
               </div>
               <input type="title" className="form-control" placeholder="0.00" />
             </div>
-            <div className="col-sm-6 mt-2 text-danger">
-              Please enter numbers only
-            </div>
+            <div className="mt-2 text-danger">Please enter numbers only</div>
           </div>
+          <Link
+            to="/"
+            type="button"
+            className="btn btn-primary btn-lg btn-block mt-5 mb-3"
+          >
+            Submit Gift
+          </Link>
         </div>
       </div>
     </div>

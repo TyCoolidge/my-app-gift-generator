@@ -8,16 +8,7 @@ export default function HomePage() {
       <div className="row mt-5">
         <div className="col-xl-6 offset-xl-3 col-8 offset-2">
           <Link to="/">
-            <h2 className="text-center ">Gift Generator</h2>
-          </Link>
-        </div>
-        <div className="col-12 ">
-          <Link
-            to="/login-page"
-            type="button"
-            className="float-right btn-sm btn-primary"
-          >
-            Share gift idea
+            <h2 className="text-center titleSize">Gift Generator</h2>
           </Link>
         </div>
       </div>
@@ -105,6 +96,17 @@ export default function HomePage() {
             <p>Price: Placeholder</p>
           </div>
         </div>
+        {/* gift share button */}
+        <div className="col-12 mt-5">
+          <Link
+            to="/login-page"
+            type="button"
+            className="float-right btn-sm btn-primary"
+          >
+            Share gift idea
+          </Link>
+        </div>
+
         {/* 
         <div className="row mb-2">
           <div className="containsImage fitToImageContainer">
