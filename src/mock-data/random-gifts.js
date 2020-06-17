@@ -1,0 +1,48 @@
+const randomGifts = [
+  {
+    id: String,
+    title: "Vitamix",
+    photo: String,
+    url: String,
+    desc: "Description Text",
+    gender: "Gender Neutral",
+    interest: "Home Appliances",
+    age: "[18-24, 25-34]",
+    price: "$" + 200,
+  },
+  {
+    id: String,
+    title: "USB Charger Station",
+    photo: String,
+    url: String,
+    desc: "Description Text2",
+    gender: "Gender Neutral",
+    interest: "Electronics",
+    age: "[12-17, 18-24, 25-34, 35-44]",
+    price: "$" + 25,
+  },
+  {
+    id: String,
+    title: "Color Pencil Set",
+    photo: String,
+    url: String,
+    desc: "Description Text3",
+    gender: "Gender Neutral",
+    interest: "Art and Crafts",
+    age: "[under 12, 12-17, 18-24, 25-34, 35-44, 45-54, 55+]",
+    price: "$" + 16.99,
+  },
+  {
+    id: String,
+    title: "Hydroflask",
+    photo: String,
+    url: String,
+    desc: "Description Text4",
+    gender: "Gender Neutral",
+    interest: "Sport & Recreation",
+    age: "[18-24, 25-34, 35-44, 45-54]",
+    price: "$" + 50,
+  },
+];
+
+export default randomGifts;

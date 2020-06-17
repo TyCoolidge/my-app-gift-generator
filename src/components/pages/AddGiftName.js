@@ -1,15 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Header from "../ui/Header";
 
 export default function AddGiftName() {
   return (
     <div className="container">
       <div className="row mt-5">
-        <div className="col-xl-6 offset-xl-3 col-8 offset-2">
-          <Link to="/">
-            <h2 className="text-center titleSize">Gift Generator</h2>
-          </Link>
-        </div>
+        <Header />
+        {/* TODO make cols a component */}
         <div className="col-12 col-sm-12 col-md-12 col-lg-8 offset-lg-2 col-xl-10 offset-xl-1">
           <Link to="/" className="float-left">
             Go back
@@ -22,7 +20,7 @@ export default function AddGiftName() {
           <h2 className="card-title text-center" style={{ fontSize: "20px" }}>
             Add or Edit Gift
           </h2>
-          <div className="form-group row mt-2">
+          <div className="form-group row mt-3">
             <label
               htmlFor="inputPassword"
               className="col-sm-3 col-md-2 col-form-label"
@@ -43,7 +41,24 @@ export default function AddGiftName() {
               <label htmlFor="Photo">Photo:</label>
             </div>
             <div className="col-sm-9 col-md-10">
-              <input type="file" />
+              <input type="file" class="form-control-file roundedFile" />
+            </div>
+          </form>
+          {/* Web link */}
+          <form className="form-group row mt-4">
+            <label
+              for="example-url-input"
+              class="col-sm-3 col-md-2 col-form-label"
+            >
+              URL:
+            </label>
+            <div class="col-sm-9 col-md-10">
+              <input
+                class="form-control"
+                type="url"
+                value="https://getbootstrap.com"
+                id="example-url-input"
+              />
             </div>
           </form>
           {/* desc box */}
@@ -106,6 +121,7 @@ export default function AddGiftName() {
               </select>
             </div>
             {/* TODO add multiselect with tags, need to make a component? */}
+            {/* Age */}
             <div className="col-sm-3"></div>
           </div>
           <div className="form-group row mt-4">
@@ -115,7 +131,7 @@ export default function AddGiftName() {
             >
               Age:
             </label>
-            <div className="col-sm-4">
+            <div className="col-sm-4 col-4">
               <select className="custom-select">
                 <option value>-----</option>
                 <option value="1">Under 12</option>
@@ -141,6 +157,7 @@ export default function AddGiftName() {
               <span class="font-weight-bold text-primary ml-2 valueSpan2"></span>
             </div> */}
           </div>
+          {/* Price */}
           <div className="form-group row my-4 ">
             <label
               htmlFor="inputPassword"
@@ -148,7 +165,7 @@ export default function AddGiftName() {
             >
               Price:
             </label>
-            <div className="input-group col-sm-4">
+            <div className="input-group col-sm-4 col-4">
               <div className="input-group-prepend">
                 <span class="input-group-text transparent-dollar-sign">$</span>
               </div>
@@ -156,11 +173,7 @@ export default function AddGiftName() {
             </div>
             <div className="mt-2 text-danger">Please enter numbers only</div>
           </div>
-          <Link
-            to="/"
-            type="button"
-            className="btn btn-primary btn-lg btn-block mt-5 mb-3"
-          >
+          <Link to="/" className="btn btn-primary btn-lg btn-block mt-5 mb-3">
             Submit Gift
           </Link>
         </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Header from "../ui/Header";
 
 export default function LoginPage() {
   return (
@@ -7,11 +8,7 @@ export default function LoginPage() {
     <div className="container">
       <div className="row my-5">
         {/* Make col a component */}
-        <div className="col-xl-6 offset-xl-3 col-8 offset-2 mb-2">
-          <Link to="/">
-            <h2 className="text-center titleSize ">Gift Generator</h2>
-          </Link>
-        </div>
+        <Header />
         {/* add logo */}
         <div className="col-6 offset-3 mb-3">
           <h5 className="text-center">Let's Find the Perfect Gift!</h5>
@@ -22,7 +19,7 @@ export default function LoginPage() {
             <div className="card-body">
               <h2
                 style={{ color: "red" }}
-                className="card-title text-center mb-5"
+                className="card-title text-center mb-3"
               >
                 Must be logged in to share gift idea
               </h2>
@@ -60,11 +57,7 @@ export default function LoginPage() {
                 </div>
                 {/* <!-- disable log in if email/ password fields are not accepted --> */}
                 <div className="float-right">
-                  <Link
-                    to="create-answer"
-                    type="submit"
-                    className="btn btn-primary btn"
-                  >
+                  <Link to="create-answer" className="btn btn-primary btn">
                     Log in
                   </Link>
                   {/* Link used to stay in React, acts like <a> */}
@@ -82,7 +75,7 @@ export default function LoginPage() {
               </h2>
               <button
                 type="button"
-                className="btn btn-primary btn-lg btn-block mt-3 mb-5"
+                className="btn btn-primary btn-lg btn-block my-3"
               >
                 Sign up
               </button>
@@ -135,7 +128,6 @@ export default function LoginPage() {
               <div className="float-right">
                 <Link
                   to="/add-gift-name"
-                  type="button"
                   className="float-left mt-1 btn btn-primary btn-block"
                 >
                   Submit
