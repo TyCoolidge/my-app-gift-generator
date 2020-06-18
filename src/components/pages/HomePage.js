@@ -15,24 +15,30 @@ export default function HomePage() {
       {/* Seperate row for titles of each select menu TODO: clean up code  */}
       <Filters />
       {/* Todo add style */}
-      <h2 className="text-center my-5">Most Popular Gifts</h2>
-      <div className="row mb-2">
-        {/* gift share button */}
+      <div className="row my-4">
+        <div className="col-6">
+          <h2 className="mt-1">Most Popular Gifts</h2>
+        </div>
+
+        <div className="col-6">
+          <Link to="/login-page" className="float-right btn btn-primary">
+            Share gift idea
+          </Link>
+        </div>
+      </div>
+      <div className="mb-2 ">
+        {/* map method use to iterate through randomGifts array returning the values shown below from our data */}
         {randomGifts.map((gifts) => {
           return (
             <IndividualGift
               title={gifts.title}
               desc={gifts.desc}
               price={gifts.price}
+              key={gifts.id}
             />
           );
         })}
-
-        <div className="col-12 mt-5">
-          <Link to="/login-page" className="float-right btn-lg btn-primary">
-            Share gift idea
-          </Link>
-        </div>
+        {/* gift share button */}
       </div>
     </div>
   );

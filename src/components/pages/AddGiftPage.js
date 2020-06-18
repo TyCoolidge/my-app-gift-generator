@@ -1,23 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Header from "../ui/Header";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
 
-export default function AddGiftName() {
+export default function AddGiftPage() {
   return (
     <div className="container">
       <div className="row mt-5">
         <Header />
         {/* TODO make cols a component */}
-        <div className="col-12 col-sm-12 col-md-12 col-lg-8 offset-lg-2 col-xl-10 offset-xl-1">
-          <Link to="/" className="float-left">
-            Go back
-          </Link>
-        </div>
+      </div>
+      <div className="col-12 col-sm-12 col-md-12 col-lg-8 offset-lg-2 col-xl-10 offset-xl-1 mb-3">
+        <Link to="/" className="">
+          <FontAwesomeIcon
+            icon={faLongArrowAltLeft}
+            style={{ fontSize: "40px" }}
+            className=""
+          />
+        </Link>
       </div>
       {/* Title form */}
-      <div className="card col-12 col-sm-12 col-md-12 col-lg-8 offset-lg-2 col-xl-10 offset-xl-1 border-primary mt-2 mb-4">
-        <div className="card-body">
-          <h2 className="card-title text-center" style={{ fontSize: "20px" }}>
+      <div className="col-12 col-sm-12 col-md-12 col-lg-8 offset-lg-2 col-xl-10 offset-xl-1 mt-2 mb-4">
+        <div className="">
+          <h2 className="card-title" style={{ fontSize: "20px" }}>
             Add or Edit Gift
           </h2>
           <div className="form-group row mt-3">
@@ -41,22 +47,22 @@ export default function AddGiftName() {
               <label htmlFor="Photo">Photo:</label>
             </div>
             <div className="col-sm-9 col-md-10">
-              <input type="file" class="form-control-file roundedFile" />
+              <input type="file" className="form-control-file roundedFile" />
             </div>
           </form>
           {/* Web link */}
           <form className="form-group row mt-4">
             <label
-              for="example-url-input"
-              class="col-sm-3 col-md-2 col-form-label"
+              htmlFor="example-url-input"
+              className="col-sm-3 col-md-2 col-form-label"
             >
               URL:
             </label>
-            <div class="col-sm-9 col-md-10">
+            <div className="col-sm-9 col-md-10">
               <input
-                class="form-control"
+                className="form-control"
                 type="url"
-                value="https://getbootstrap.com"
+                placeholder="https://getbootstrap.com"
                 id="example-url-input"
               />
             </div>
@@ -67,9 +73,11 @@ export default function AddGiftName() {
               <label htmlFor="exampleFormControlTextarea1">Description:</label>
             </div>
             <div className="col-sm-9 col-md-10">
-              <textarea className="form-control" rows="3">
-                Enter text here...
-              </textarea>
+              <textarea
+                className="form-control"
+                rows="3"
+                placeholder="Enter text here..."
+              ></textarea>
             </div>
           </div>
           {/* Gender either checkbox or buttons */}
@@ -80,18 +88,18 @@ export default function AddGiftName() {
             >
               Gender:
             </label>
-            <div class="col-sm-3 col-md-3 mb-2">
-              <button type="button" class="btn btn-primary btn-block">
+            <div className="col-sm-3 col-md-3 mb-2">
+              <button type="button" className="btn btn-primary btn-block">
                 Male
               </button>
             </div>
-            <div class="col-sm-3 col-md-3 mb-2">
-              <button type="button" class="btn btn-success btn-block">
+            <div className="col-sm-3 col-md-3 mb-2">
+              <button type="button" className="btn btn-success btn-block">
                 Female
               </button>
             </div>
-            <div class="col-sm-3 col-md-3 mb-2">
-              <button type="button" class="btn btn-warning btn-block">
+            <div className="col-sm-3 col-md-3 mb-2">
+              <button type="button" className="btn btn-warning btn-block">
                 Neutral
               </button>
             </div>
@@ -131,7 +139,7 @@ export default function AddGiftName() {
             >
               Age:
             </label>
-            <div className="col-sm-4 col-4">
+            <div className="col-sm-4 col-6 col-md-3 col-lg-3 col-xl-2">
               <select className="custom-select">
                 <option value>-----</option>
                 <option value="1">Under 12</option>
@@ -165,9 +173,11 @@ export default function AddGiftName() {
             >
               Price:
             </label>
-            <div className="input-group col-sm-4 col-4">
+            <div className="input-group col-sm-4 col-6 col-md-3 col-lg-3 col-xl-2">
               <div className="input-group-prepend">
-                <span class="input-group-text transparent-dollar-sign">$</span>
+                <span className="input-group-text transparent-dollar-sign">
+                  $
+                </span>
               </div>
               <input type="title" className="form-control" placeholder="0.00" />
             </div>

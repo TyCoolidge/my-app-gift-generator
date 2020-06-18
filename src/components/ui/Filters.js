@@ -4,16 +4,16 @@ export default function Filters() {
   return (
     <div>
       <div className="row mt-3">
-        <div className="col-3 text-center">
+        <div className="col-3">
           <h5>Gender</h5>
         </div>
-        <div className="col-3 text-center">
+        <div className="col-3">
           <h5>Age Group</h5>
         </div>
-        <div className="col-3 text-center">
+        <div className="col-3">
           <h5>Interest</h5>
         </div>
-        <div className="col-3 text-center">
+        <div className="col-3">
           <h5>Price Range</h5>
         </div>
       </div>

@@ -1,6 +1,6 @@
 const randomGifts = [
   {
-    id: String,
+    id: "501f6331-3273-416c-a40b-e06d2c8440fd",
     title: "Vitamix",
     photo: String,
     url: String,
@@ -11,7 +11,7 @@ const randomGifts = [
     price: "$" + 200,
   },
   {
-    id: String,
+    id: "8ca3c483-0566-497f-a717-cea008833167",
     title: "USB Charger Station",
     photo: String,
     url: String,
@@ -22,7 +22,7 @@ const randomGifts = [
     price: "$" + 25,
   },
   {
-    id: String,
+    id: "94857791-a2c2-4be8-8abb-471ef1d11fa9",
     title: "Color Pencil Set",
     photo: String,
     url: String,
@@ -33,7 +33,7 @@ const randomGifts = [
     price: "$" + 16.99,
   },
   {
-    id: String,
+    id: "e6f2f724-43b4-425b-a4d3-faedb5ec5efc",
     title: "Hydroflask",
     photo: String,
     url: String,
