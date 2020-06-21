@@ -17,7 +17,7 @@ export default function HomePage() {
       {/* Todo add style */}
       <div className="row my-4">
         <div className="col-6">
-          <h2 className="mt-1">Most Popular Gifts</h2>
+          <h2 className="">Most Popular Gifts</h2>
         </div>
 
         <div className="col-6">
