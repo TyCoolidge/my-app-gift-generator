@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import classnames from "classnames";
+import hash from "object-hash";
+import { v4 as getUuid } from "uuid";
 
 export default class SignUp extends React.Component {
   constructor(props) {
@@ -28,9 +30,7 @@ export default class SignUp extends React.Component {
     });
   }
 
-  validateUserInputs() {
-    const signUpEmailInput = document.getElementById("sign-up-email-input")
-      .value;
+  validateSignUp(signUpEmailInput) {
     // eslint-disable-next-line
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const lowerCaseSignUpEmailInput = signUpEmailInput.toLowerCase();
@@ -45,6 +45,12 @@ export default class SignUp extends React.Component {
     } else {
       this.setState({ signUpEmailError: "" });
     }
+  }
+
+  validateUserInputs() {
+    const signUpEmailInput = document.getElementById("sign-up-email-input")
+      .value;
+    this.validateSignUp(signUpEmailInput);
   }
 
   render() {
