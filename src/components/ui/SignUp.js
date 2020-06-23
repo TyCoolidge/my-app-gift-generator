@@ -3,23 +3,34 @@ import { Link } from "react-router-dom";
 import classnames from "classnames";
 import hash from "object-hash";
 import { v4 as getUuid } from "uuid";
+import { withRouter } from "react-router-dom";
 
-export default class SignUp extends React.Component {
+class SignUp extends React.Component {
   constructor(props) {
     super(props);
-    console.log("HEy console");
     this.state = {
       isEmailInputDisplayed: false,
       makeBtnLargeAndCentered: true,
+      //email
       signUpEmailError: "",
-      //   addusername logic
+      hasEmailError: false,
+      hasEmailSuccess: false,
+      //create password
       createPasswordError: "",
+      hasCreatePasswordError: false,
+      hasCreatePasswordSuccess: false,
+      //repeat passord
       repeatPasswordError: "",
+      hasRepeatPasswordError: false,
+      hasRepeatPasswordSuccess: false,
+      //username
+      userNameError: "",
+      hasUserNameError: false,
+      hasUserNameSuccess: false,
     };
   }
 
   showCreateAccountInputs() {
-    console.log("show");
     this.setState({ isEmailInputDisplayed: !this.state.isEmailInputDisplayed });
   }
   changeButtonFromLargeToRegular() {
@@ -30,7 +41,7 @@ export default class SignUp extends React.Component {
     });
   }
 
-  validateSignUp(signUpEmailInput) {
+  async checkForEmailError(signUpEmailInput) {
     // eslint-disable-next-line
     const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const lowerCaseSignUpEmailInput = signUpEmailInput.toLowerCase();
@@ -39,18 +50,136 @@ export default class SignUp extends React.Component {
     // const repeatPassword = document.getElementById("repeat-password")
     //   .value;
     if (signUpEmailInput === "")
-      this.setState({ signUpEmailError: "Please enter your address" });
-    else if (!emailRegex.test(lowerCaseSignUpEmailInput)) {
-      this.setState({ signUpEmailError: "Please enter a valid email" });
+      this.setState({
+        signUpEmailError: "Please enter your address",
+        hasEmailError: true,
+      });
+    else if (emailRegex.test(lowerCaseSignUpEmailInput) === false) {
+      this.setState({
+        signUpEmailError: "Please enter a valid email",
+        hasEmailError: true,
+      });
     } else {
-      this.setState({ signUpEmailError: "" });
+      this.setState({
+        signUpEmailError: "",
+        hasEmailError: false,
+        hasEmailSuccess: true,
+      });
     }
   }
 
-  validateUserInputs() {
+  async checkForUserNameError(userNameInput) {
+    const usernameRegex = /^[a-zA-Z0-9]+$/;
+    const lowerCaseUserNameInput = userNameInput.toLowerCase();
+    if (userNameInput === "") {
+      this.setState({
+        userNameError: "Please create a username",
+        hasUserNameError: true,
+      });
+    } else if (usernameRegex.test(lowerCaseUserNameInput) === false) {
+      this.setState({
+        userNameError: "Username can only contain numbers and letters",
+        hasUserNameError: true,
+      });
+    } else {
+      this.setState({
+        userNameError: "",
+        hasUserNameError: false,
+        hasUserNameSuccess: true,
+      });
+    }
+  }
+
+  async checkForPasswordError(createPasswordInput, signUpEmailInput) {
+    const uniqChars = [...new Set(createPasswordInput)];
+    //array of unique characters
+    if (createPasswordInput === "") {
+      this.setState({
+        createPasswordError: "Please create a password",
+        hasCreatePasswordError: true,
+      });
+    } else if (createPasswordInput.length < 9) {
+      this.setState({
+        createPasswordError: "Your password must be at least 9 characters",
+        hasCreatePasswordError: true,
+      });
+    } else if (this.checkHasLocalPart(createPasswordInput, signUpEmailInput)) {
+      // returns boolean
+      this.setState({
+        createPasswordError:
+          "Your email address cannot be used in your password.",
+        hasCreatePasswordError: true,
+      });
+    } else if (uniqChars.length < 3) {
+      this.setState({
+        createPasswordError:
+          "Your password must contain at least 3 unique characters",
+        hasCreatePasswordError: true,
+      });
+    } else {
+      this.setState({
+        createPasswordError: "",
+        hasCreatePasswordError: false,
+        hasCreatePasswordSuccess: true,
+      });
+    }
+  }
+
+  checkHasLocalPart(createPasswordInput, signUpEmailInput) {
+    const localPart = signUpEmailInput.split("@")[0];
+    if (localPart === "") return false;
+    //removes bug of displaying uniqChars error message
+    else if (localPart.length < 4) return false;
+    else return createPasswordInput.includes(localPart); // returns boolean(true)
+  }
+  async checkIfPasswordsMatch(repeatPasswordInput, createPasswordInput) {
+    if (repeatPasswordInput === "") {
+      this.setState({
+        repeatPasswordError: "Please repeat your created password",
+        hasRepeatPasswordError: true,
+      });
+    } else if (repeatPasswordInput !== createPasswordInput) {
+      this.setState({
+        repeatPasswordError: "Your passwords do not match, please try again",
+        hasRepeatPasswordError: true,
+      });
+    } else {
+      this.setState({
+        repeatPasswordError: "",
+        hasRepeatPasswordError: false,
+        hasRepeatPasswordSuccess: true,
+      });
+    }
+  }
+
+  //checkIfPasswordRepeats if createpassword === repeatpassword error returns false
+  async validateUserInputs() {
     const signUpEmailInput = document.getElementById("sign-up-email-input")
       .value;
-    this.validateSignUp(signUpEmailInput);
+    const createPasswordInput = document.getElementById("create-password-input")
+      .value;
+    const repeatPasswordInput = document.getElementById("repeat-password-input")
+      .value;
+    const userNameInput = document.getElementById("user-name-input").value;
+    await this.checkForEmailError(signUpEmailInput);
+    await this.checkForUserNameError(userNameInput);
+    await this.checkForPasswordError(createPasswordInput, signUpEmailInput);
+    await this.checkIfPasswordsMatch(repeatPasswordInput, createPasswordInput);
+    if (
+      this.state.hasEmailError === false &&
+      this.state.hasCreatePasswordError === false &&
+      this.state.hasRepeatPasswordError === false &&
+      this.state.hasUserNameError === false
+    ) {
+      const createUser = {
+        id: getUuid(),
+        email: signUpEmailInput,
+        password: hash(createPasswordInput),
+        createdAt: Date.now(),
+      };
+      console.log(createUser);
+      this.props.history.push("/add-gift-page");
+    }
   }
 
   render() {
@@ -72,14 +201,15 @@ export default class SignUp extends React.Component {
                     type="email"
                     className={classnames({
                       "form-control": true,
-                      "is-invalid": this.state.signUpEmailError !== "",
+                      "is-invalid": this.state.hasEmailError,
+                      "is-valid": this.state.hasEmailSuccess,
                     })}
                     aria-describedby="emailHelp"
                     placeholder="Enter email"
                     id="sign-up-email-input"
                   />
-                  {this.state.signUpEmailError !== "" && (
-                    <small className="form-text text-danger" classname>
+                  {this.state.hasEmailError !== "" && (
+                    <small className="form-text text-danger">
                       {this.state.signUpEmailError}
                     </small>
                   )}
@@ -93,31 +223,42 @@ export default class SignUp extends React.Component {
               <div className="col-6">
                 <div className="form-group">
                   <label htmlFor="exampleInputPassword1">User Name</label>
-                  <input type="userName" className="form-control" />
+                  <input
+                    type="userName"
+                    className={classnames({
+                      "form-control": true,
+                      "is-invalid": this.state.hasUserNameError,
+                      "is-valid": this.state.hasUserNameSuccess,
+                    })}
+                    id="user-name-input"
+                  />{" "}
+                  {this.state.hasUserNameError && (
+                    <small className="form-text text-danger">
+                      {this.state.userNameError}
+                    </small>
+                  )}
                 </div>
               </div>
-
-              {/* <div className="mt-4">
-                              <Link
-                                to="create-answer"
-                                className="btn btn-lg btn-block btn-primary"
-                              >
-                                Create Account
-                              </Link>
-                              {/* Link used to stay in React, acts like <a> */}
-              {/* </div> */}
             </div>
             <div className="row">
               <div className="col-6">
                 <div className="form-group">
                   <label htmlFor="create-password-input">Create Password</label>
                   <input
-                    type="email"
-                    className="form-control"
-                    aria-describedby="emailHelp"
-                    placeholder="Enter email"
+                    type="password"
+                    className={classnames({
+                      "form-control": true,
+                      "is-invalid": this.state.hasCreatePasswordError,
+                      "is-valid": this.state.hasCreatePasswordSuccess,
+                    })}
+                    placeholder="Enter password"
                     id="create-password-input"
                   />
+                  {this.state.hasCreatePasswordError && (
+                    <small className="form-text text-danger">
+                      {this.state.createPasswordError}
+                    </small>
+                  )}
                 </div>
               </div>
               <div className="col-6">
@@ -125,10 +266,19 @@ export default class SignUp extends React.Component {
                   <label htmlFor="repeat-password">Repeat Password</label>
                   <input
                     type="password"
-                    className="form-control"
+                    className={classnames({
+                      "form-control": true,
+                      "is-invalid": this.state.hasRepeatPasswordError,
+                      "is-valid": this.state.hasRepeatPasswordSuccess,
+                    })}
                     placeholder="Password"
-                    id="repeat-password"
-                  />
+                    id="repeat-password-input"
+                  />{" "}
+                  {this.state.hasRepeatPasswordError && (
+                    <small className="form-text text-danger">
+                      {this.state.repeatPasswordError}
+                    </small>
+                  )}
                 </div>
               </div>
             </div>
@@ -150,7 +300,6 @@ export default class SignUp extends React.Component {
           <div className="text-center mt-5 col-12">
             <Link
               to="#"
-              type="submit"
               className="btn btn-block btn-primary"
               onClick={() => {
                 this.showCreateAccountInputs();
@@ -166,3 +315,5 @@ export default class SignUp extends React.Component {
     );
   }
 }
+
+export default withRouter(SignUp);

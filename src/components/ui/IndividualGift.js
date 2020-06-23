@@ -9,7 +9,7 @@ export default function IndividualGift(props) {
           {/* TODO add linebreaks */}
           <div className="containsImage fitToImageContainer">
             <div className="">
-              <img alt="item" />
+              <img alt="item" url={props.img} />
             </div>
           </div>
         </div>
@@ -23,7 +23,7 @@ export default function IndividualGift(props) {
             Description: {props.desc}
             <br />
           </div>
-          <div className="mb-2">Price: {props.price}</div>
+          <div className="mb-2">Price: ${props.price}</div>
         </div>
       </div>
       <hr />

@@ -1,17 +1,21 @@
 const randomGifts = [
   {
     id: "501f6331-3273-416c-a40b-e06d2c8440fd",
+    createdAt: 1592855191798,
+    createdByUserId: "dbffe071-b5f6-4e70-8df7-2583fd274345",
     title: "Vitamix",
     photo: String,
     url: String,
     desc: "Description Text",
     gender: "Gender Neutral",
     interest: "Home Appliances",
-    age: "[18-24, 25-34]",
-    price: "$" + 200,
+    age: 3, //MVP only allow one filter
+    price: 20000, //price is in cents 20000 = $200, make conversion
   },
   {
     id: "8ca3c483-0566-497f-a717-cea008833167",
+    createdAt: 1592855191798,
+    createdByUserId: "dbffe071-b5f6-4e70-8df7-2583fd274345",
     title: "USB Charger Station",
     photo: String,
     url: String,
@@ -19,10 +23,12 @@ const randomGifts = [
     gender: "Gender Neutral",
     interest: "Electronics",
     age: "[12-17, 18-24, 25-34, 35-44]",
-    price: "$" + 25,
+    price: 2500,
   },
   {
     id: "94857791-a2c2-4be8-8abb-471ef1d11fa9",
+    createdAt: 1592855191798,
+    createdByUserId: "dbffe071-b5f6-4e70-8df7-2583fd274345",
     title: "Color Pencil Set",
     photo: String,
     url: String,
@@ -30,10 +36,12 @@ const randomGifts = [
     gender: "Gender Neutral",
     interest: "Art and Crafts",
     age: "[under 12, 12-17, 18-24, 25-34, 35-44, 45-54, 55+]",
-    price: "$" + 16.99,
+    price: 1699,
   },
   {
     id: "e6f2f724-43b4-425b-a4d3-faedb5ec5efc",
+    createdAt: 1592855191798,
+    createdByUserId: "dbffe071-b5f6-4e70-8df7-2583fd274345",
     title: "Hydroflask",
     photo: String,
     url: String,
@@ -41,7 +49,7 @@ const randomGifts = [
     gender: "Gender Neutral",
     interest: "Sport & Recreation",
     age: "[18-24, 25-34, 35-44, 45-54]",
-    price: "$" + 50,
+    price: 5000,
   },
 ];
 
