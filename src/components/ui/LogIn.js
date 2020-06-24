@@ -82,7 +82,7 @@ class LogIn extends React.Component {
 
   render() {
     return (
-      <div className="col-4 mx-4">
+      <div className="col-xl-4 col-lg-4 mx-4 col-md-12">
         <h2 style={{ color: "red" }} className="card-title">
           Log In
         </h2>

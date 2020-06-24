@@ -184,7 +184,7 @@ class SignUp extends React.Component {
 
   render() {
     return (
-      <div className="col mx-4">
+      <div className="mb-5 col-xl col-lg mx-4 col-md-12">
         <h2 style={{ color: "red" }} className="card-title">
           Sign Up to Create a Gift
         </h2>
@@ -194,7 +194,7 @@ class SignUp extends React.Component {
         {this.state.isEmailInputDisplayed && (
           <form>
             <div className="row">
-              <div className="col-6">
+              <div className="col-xl-6 col-lg-6 col-md-12">
                 <div className="form-group">
                   <label htmlFor="sign-up-email-input">Email address</label>
                   <input
@@ -220,7 +220,7 @@ class SignUp extends React.Component {
                   )}
                 </div>
               </div>
-              <div className="col-6">
+              <div className="col-xl-6 col-lg-6 col-md-12">
                 <div className="form-group">
                   <label htmlFor="exampleInputPassword1">User Name</label>
                   <input
@@ -241,7 +241,7 @@ class SignUp extends React.Component {
               </div>
             </div>
             <div className="row">
-              <div className="col-6">
+              <div className="col-xl-6 col-lg-6 col-md-12">
                 <div className="form-group">
                   <label htmlFor="create-password-input">Create Password</label>
                   <input
@@ -261,7 +261,7 @@ class SignUp extends React.Component {
                   )}
                 </div>
               </div>
-              <div className="col-6">
+              <div className="col-xl-6 col-lg-6 col-md-12">
                 <div className="form-group">
                   <label htmlFor="repeat-password">Repeat Password</label>
                   <input

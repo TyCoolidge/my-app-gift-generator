@@ -7,5 +7,5 @@ const randomGiftData = {
   gender: String,
   interest: String,
   age: String,
-  price: (String, Number),
+  price: Number,
 };
