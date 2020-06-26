@@ -5,14 +5,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
 import classnames from "classnames";
 import { checkIsOver } from "../utils/helpers";
+import ToggleButton from "react-bootstrap/ToggleButton";
+import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 
 export default class AddGiftPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       //if any errors
-      hasBlankInputs: false,
-      descText: "",
+      hasBlankInputs: "",
+
       //title
       titleText: "",
       hasTitleError: false,
@@ -22,6 +24,29 @@ export default class AddGiftPage extends React.Component {
       hasPhotoError: false,
       hasPhotoSuccess: false,
       uploadFile: "Choose file...",
+      //url
+      hasUrlError: false,
+      hasUrlSuccess: false,
+      //description
+      descText: "",
+      hasDescError: false,
+      hasDescSuccess: false,
+      //gender
+      isGenderSelected: false,
+      signUpGenderSelect: "",
+      //interest
+      setInterestSelected: "",
+      hasInterestError: false,
+      hasInterestSuccess: false,
+      //age
+      setAgeSelected: "",
+      hasAgeError: false,
+      hasAgeSuccess: false,
+      //price
+      priceTyped: "",
+      priceWarning: "",
+      hasPriceError: false,
+      hasPriceSuccess: false,
     };
   }
   setTitleText(e) {
@@ -32,6 +57,9 @@ export default class AddGiftPage extends React.Component {
   }
   setPhotoText(e) {
     this.setState({ uploadFile: e.target.value });
+  }
+  setPriceNumber(e) {
+    this.setState({ priceTyped: e.target.value });
   }
 
   checkForTitleError(titleInput) {
@@ -57,27 +85,124 @@ export default class AddGiftPage extends React.Component {
         hasPhotoError: true,
       });
     } else {
-      this.setState({ hasPhotoError: false });
+      this.setState({ hasPhotoError: false, hasPhotoSuccess: true });
     }
   }
-  validateGiftInfo() {
-    const titleInput = document.getElementById("title-input").value;
-    const photoInput = document.getElementById("photo-input").value;
-    // const urlInput = document.getElementById("url-input").value;
-    // const descInput = document.getElementById("desc-input").value;
-    // const genderInput = document.getElementById("gender-input").value;
-    // const interestInput = document.getElementById("interest-input").value;
-    // const ageInput = document.getElementById("age-input").value;
-    // const priceInput = document.getElementById("price-input").value;
-    this.checkForTitleError(titleInput);
-    this.checkForPhotoError(photoInput);
-    if (titleInput === "") {
+
+  checkForUrlError(urlInput) {
+    const urlRegex = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+    if (urlRegex.test(urlInput) === false) {
+      this.setState({ hasUrlError: true });
+    } else if (urlInput === "") {
       this.setState({
-        hasBlankInputs: true,
+        hasUrlError: true,
+      });
+    } else {
+      this.setState({ hasUrlError: false, hasUrlSuccess: true });
+    }
+  }
+
+  checkForDescError(descInput) {
+    if (descInput === "") {
+      this.setState({
+        hasDescError: true,
+      });
+    } else if (checkIsOver(this.state.descText, 200) === true) {
+      this.setState({ hasDescError: true });
+    } else {
+      this.setState({
+        hasDescError: false,
+        hasDescSuccess: true,
+      });
+    }
+  }
+
+  checkIfGenderIsSelected(signUpGenderSelect) {
+    if (signUpGenderSelect === "") {
+      this.setState({ isGenderSelected: true });
+    } else {
+      this.setState({ isGenderSelected: false });
+    }
+  }
+
+  checkForInterestError(setInterestSelected) {
+    if (setInterestSelected === "" || setInterestSelected === "0") {
+      this.setState({ hasInterestError: true });
+    } else {
+      this.setState({ hasInterestError: false, hasInterestSuccess: true });
+    }
+  }
+
+  checkForAgeError(setAgeSelected) {
+    if (setAgeSelected === "" || setAgeSelected === "0") {
+      this.setState({ hasAgeError: true });
+    } else {
+      this.setState({ hasAgeError: false, hasAgeSuccess: true });
+    }
+  }
+
+  checkForPriceError(priceInput) {
+    const priceRegex = /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/g;
+    //http://regexlib.com/Search.aspx?k=currency
+    if (priceInput === "") {
+      this.setState({
+        hasPriceError: true,
+        priceWarning: "Please enter a price",
+      });
+    } else if (priceRegex.test(priceInput) === false) {
+      this.setState({
+        hasPriceError: true,
+        priceWarning: "Please enter numbers only",
       });
     } else {
       this.setState({
-        hasBlankInputs: false,
+        hasPriceError: false,
+        hasPriceSuccess: true,
+      });
+    }
+  }
+
+  //grabs value of gender buttons
+  //TODO seperate
+  handleChange = (e) => {
+    this.setState({
+      signUpGenderSelect: e.target.value,
+      setInterestSelected: e.target.value,
+      setAgeSelected: e.target.value,
+    });
+    console.log(e.target.value);
+  };
+
+  validateGiftInfo() {
+    const titleInput = document.getElementById("title-input").value;
+    const photoInput = document.getElementById("photo-input").value;
+    const urlInput = document.getElementById("url-input").value;
+    const descInput = document.getElementById("desc-input").value;
+    const signUpGenderSelect = this.state.signUpGenderSelect;
+    // const maleSelect = document.getElementById("option1").value;
+    // const femaleSelect = document.getElementById("option2").value;
+    // const neutralSelect = document.getElementById("option3").value;
+    //TODO seperate id for each  btn
+    const setInterestSelected = this.state.setInterestSelected;
+    const setAgeSelected = this.state.setAgeSelected;
+
+    // const ageInput = document.getElementById("age-input").value;
+    const priceInput = document.getElementById("price-input").value;
+    this.checkForTitleError(titleInput);
+    this.checkForPhotoError(photoInput);
+    this.checkForUrlError(urlInput);
+    this.checkForDescError(descInput);
+    this.checkIfGenderIsSelected(signUpGenderSelect);
+    this.checkForInterestError(setInterestSelected);
+    this.checkForAgeError(setAgeSelected);
+    this.checkForPriceError(priceInput);
+    if (titleInput === "" || photoInput === "") {
+      this.setState({
+        hasBlankInputs: "All input must be filled out",
+      });
+    } else {
+      this.setState({
+        hasBlankInputs: "",
       });
     }
   }
@@ -149,17 +274,21 @@ export default class AddGiftPage extends React.Component {
                 <label htmlFor="Photo">Photo:</label>
               </div>
               <div className="col-sm-9 col-md-10">
-                <div class="custom-file">
+                <div className="custom-file">
                   <input
                     type="file"
                     className={classnames({
                       "custom-file-input": true,
                       "is-invalid": this.state.hasPhotoError,
+                      "is-valid": this.state.hasPhotoSuccess,
                     })}
                     id="photo-input"
                     onChange={(e) => this.setPhotoText(e)}
                   />
-                  <label class="custom-file-label" id="file-upload-filename">
+                  <label
+                    className="custom-file-label"
+                    id="file-upload-filename"
+                  >
                     {this.state.uploadFile}
                   </label>
                 </div>
@@ -185,7 +314,11 @@ export default class AddGiftPage extends React.Component {
               </label>
               <div className="col-sm-9 col-md-10">
                 <input
-                  className="form-control"
+                  className={classnames({
+                    "form-control": true,
+                    "is-invalid": this.state.hasUrlError,
+                    "is-valid": this.state.hasUrlSuccess,
+                  })}
                   type="url"
                   placeholder="https://getbootstrap.com"
                   id="url-input"
@@ -201,7 +334,11 @@ export default class AddGiftPage extends React.Component {
               </div>
               <div className="col-sm-9 col-md-10">
                 <textarea
-                  className="form-control"
+                  className={classnames({
+                    "form-control": true,
+                    "is-invalid": this.state.hasDescError,
+                    "is-valid": this.state.hasDescSuccess,
+                  })}
                   rows="3"
                   placeholder="Enter text here..."
                   onChange={(e) => this.setDescText(e)}
@@ -209,7 +346,7 @@ export default class AddGiftPage extends React.Component {
                 ></textarea>
                 <span
                   className={classnames({
-                    "text-danger": checkIsOver(this.state.descText, 250),
+                    "text-danger": checkIsOver(this.state.descText, 200),
                     "float-right": true,
                   })}
                 >
@@ -218,29 +355,83 @@ export default class AddGiftPage extends React.Component {
               </div>
             </div>
             {/* Gender either checkbox or buttons */}
-            <div id="gender-input">
-              <div className="form-group row mt-3">
+            <div id="">
+              <div className=" row mt-3">
                 <label
                   htmlFor="inputPassword"
                   className="col-sm-3 col-md-2 col-form-label"
                 >
                   Gender:
                 </label>
-                <div className="col-sm-3 col-md-3 mb-2">
-                  <button type="button" className="btn btn-primary btn-block">
+                {/* place in own forms */}
+
+                <ToggleButtonGroup className="col" type="radio" name="options">
+                  <ToggleButton
+                    className={classnames({
+                      "button-outline": true,
+                      "danger-button": this.state.isGenderSelected,
+                      "col-5": true,
+                      btn: true,
+                      // "btn-outline-primary": true,
+                      "mr-2": true,
+                      rounded: true,
+                    })}
+                    value={"1"}
+                    type="radio"
+                    name="options"
+                    id="option1"
+                    checked={this.state.signUpGenderSelect === "option1"}
+                    onChange={this.handleChange}
+                    onClick={() => {
+                      this.checkIfGenderIsSelected();
+                    }}
+                  >
                     Male
-                  </button>
-                </div>
-                <div className="col-sm-3 col-md-3 mb-2">
-                  <button type="button" className="btn btn-success btn-block">
+                  </ToggleButton>
+                  <ToggleButton
+                    className={classnames({
+                      "button-outline": true,
+                      "danger-button": this.state.isGenderSelected,
+                      "col-4": true,
+                      btn: true,
+                      // "btn-outline-primary": true,
+                      "mr-2": true,
+                      rounded: true,
+                    })}
+                    value={"2"}
+                    type="radio"
+                    name="options"
+                    id="option2"
+                    checked={this.state.signUpGenderSelect === "option2"}
+                    onChange={this.handleChange}
+                    onClick={() => {
+                      this.checkIfGenderIsSelected();
+                    }}
+                  >
                     Female
-                  </button>
-                </div>
-                <div className="col-sm-3 col-md-3 mb-2">
-                  <button type="button" className="btn btn-warning btn-block">
+                  </ToggleButton>
+                  <ToggleButton
+                    className={classnames({
+                      "button-outline": true,
+                      "danger-button": this.state.isGenderSelected,
+                      "col-4": true,
+                      btn: true,
+                      // "btn-outline-primary": true,
+                      rounded: true,
+                    })}
+                    value={"3"}
+                    type="radio"
+                    name="options"
+                    id="option3"
+                    checked={this.state.signUpGenderSelect === "option3"}
+                    onChange={this.handleChange}
+                    onClick={() => {
+                      this.checkIfGenderIsSelected();
+                    }}
+                  >
                     Neutral
-                  </button>
-                </div>
+                  </ToggleButton>
+                </ToggleButtonGroup>
               </div>
             </div>
             {/*  */}
@@ -253,8 +444,17 @@ export default class AddGiftPage extends React.Component {
                 Interest:
               </label>
               <div className="col-sm-5">
-                <select className="custom-select" id="interest-input">
-                  <option value>Nothing Selected</option>
+                <select
+                  className={classnames({
+                    "custom-select": true,
+                    "is-invalid": this.state.hasInterestError,
+                    "is-valid": this.state.hasInterestSuccess,
+                  })}
+                  id="interest-input"
+                  checked={this.state.setInterestSelected === "interest-input"}
+                  onChange={this.handleChange}
+                >
+                  <option value="0">Nothing Selected</option>
                   <option value="1">Arts and Crafts</option>
                   <option value="2">Collectibles</option>
                   <option value="3">Electronics</option>
@@ -279,8 +479,17 @@ export default class AddGiftPage extends React.Component {
                 Age:
               </label>
               <div className="col-sm-4 col-6 col-md-3 col-lg-3 col-xl-2">
-                <select className="custom-select" id="age-input">
-                  <option value>-----</option>
+                <select
+                  className={classnames({
+                    "custom-select": true,
+                    "is-invalid": this.state.hasAgeError,
+                    "is-valid": this.state.hasAgeSuccess,
+                  })}
+                  id="age-input"
+                  checked={this.state.setAgeSelected === "age-input"}
+                  onChange={this.handleChange}
+                >
+                  <option value="0">-----</option>
                   <option value="1">Under 12</option>
                   <option value="2">12-17</option>
                   <option value="3">18-24</option>
@@ -290,19 +499,6 @@ export default class AddGiftPage extends React.Component {
                   <option value="7">55+</option>
                 </select>
               </div>
-              {/* TODO javascript for dragbar */}
-              {/* <div class="d-flex justify-content-center my-4">
-              <div class="w-75">
-                <input
-                  type="range"
-                  class="custom-range"
-                  id="customRange11"
-                  min="0"
-                  max="200"
-                />
-              </div>
-              <span class="font-weight-bold text-primary ml-2 valueSpan2"></span>
-            </div> */}
             </div>
             {/* Price */}
             <div className="form-group row my-4 ">
@@ -312,20 +508,38 @@ export default class AddGiftPage extends React.Component {
               >
                 Price:
               </label>
-              <div className="input-group col-sm-4 col-6 col-md-3 col-lg-3 col-xl-2">
-                <div className="input-group-prepend">
-                  <span className="input-group-text transparent-dollar-sign">
+              <div className="input-group  col-sm-4 col-6 col-md-3 col-lg-3 col-xl-2 ">
+                <div className="input-group-prepend ">
+                  <span
+                    className={classnames({
+                      "border-danger": this.state.hasPriceError,
+                      "border-success": this.state.hasPriceSuccess,
+                      numberSignBackground: true,
+                      "input-group-text": true,
+                      "transparent-dollar-sign": true,
+                    })}
+                  >
                     $
                   </span>
                 </div>
                 <input
                   type="title"
-                  className="form-control"
+                  className={classnames({
+                    "form-control": true,
+                    "is-invalid": this.state.hasPriceError,
+                    "is-valid": this.state.hasPriceSuccess,
+                  })}
                   placeholder="0.00"
                   id="price-input"
+                  onChange={(e) => this.setPriceNumber(e)}
                 />
               </div>
-              <div className="mt-2 text-danger">Please enter numbers only</div>
+
+              {this.state.hasPriceError && (
+                <div className="mt-2 text-danger">
+                  {this.state.priceWarning}
+                </div>
+              )}
             </div>
             <Link
               to="#"
