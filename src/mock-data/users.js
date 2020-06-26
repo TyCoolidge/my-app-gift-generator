@@ -7,3 +7,5 @@ const users = [
     createdAt: 1592337386978,
   },
 ];
+
+export { users };

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import Header from "../ui/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
@@ -7,8 +7,10 @@ import classnames from "classnames";
 import { checkIsOver } from "../utils/helpers";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
+import { v4 as getUuid } from "uuid";
+import { users } from "../../mock-data/users";
 
-export default class AddGiftPage extends React.Component {
+class AddGiftPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -61,8 +63,18 @@ export default class AddGiftPage extends React.Component {
   setPriceNumber(e) {
     this.setState({ priceTyped: e.target.value });
   }
+  setGenderValue(e) {
+    this.setState({ signUpGenderSelect: e.target.value });
+  }
 
-  checkForTitleError(titleInput) {
+  setInterestValue(e) {
+    this.setState({ setInterestSelected: e.target.value });
+  }
+  setAgeValue(e) {
+    this.setState({ setAgeSelected: e.target.value });
+  }
+
+  async checkForTitleError(titleInput) {
     if (titleInput === "") {
       this.setState({
         hasTitleError: true,
@@ -77,9 +89,8 @@ export default class AddGiftPage extends React.Component {
     }
   }
 
-  checkForPhotoError(photoInput) {
-    var photoData = photoInput.toString();
-    console.log(photoData);
+  async checkForPhotoError(photoInput) {
+    // var photoData = photoInput.toString();
     if (photoInput === "") {
       this.setState({
         hasPhotoError: true,
@@ -89,7 +100,7 @@ export default class AddGiftPage extends React.Component {
     }
   }
 
-  checkForUrlError(urlInput) {
+  async checkForUrlError(urlInput) {
     const urlRegex = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
     if (urlRegex.test(urlInput) === false) {
       this.setState({ hasUrlError: true });
@@ -102,7 +113,7 @@ export default class AddGiftPage extends React.Component {
     }
   }
 
-  checkForDescError(descInput) {
+  async checkForDescError(descInput) {
     if (descInput === "") {
       this.setState({
         hasDescError: true,
@@ -117,7 +128,7 @@ export default class AddGiftPage extends React.Component {
     }
   }
 
-  checkIfGenderIsSelected(signUpGenderSelect) {
+  async checkIfGenderIsSelected(signUpGenderSelect) {
     if (signUpGenderSelect === "") {
       this.setState({ isGenderSelected: true });
     } else {
@@ -125,7 +136,7 @@ export default class AddGiftPage extends React.Component {
     }
   }
 
-  checkForInterestError(setInterestSelected) {
+  async checkForInterestError(setInterestSelected) {
     if (setInterestSelected === "" || setInterestSelected === "0") {
       this.setState({ hasInterestError: true });
     } else {
@@ -133,7 +144,7 @@ export default class AddGiftPage extends React.Component {
     }
   }
 
-  checkForAgeError(setAgeSelected) {
+  async checkForAgeError(setAgeSelected) {
     if (setAgeSelected === "" || setAgeSelected === "0") {
       this.setState({ hasAgeError: true });
     } else {
@@ -141,7 +152,7 @@ export default class AddGiftPage extends React.Component {
     }
   }
 
-  checkForPriceError(priceInput) {
+  async checkForPriceError(priceInput) {
     const priceRegex = /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/g;
     //http://regexlib.com/Search.aspx?k=currency
     if (priceInput === "") {
@@ -162,18 +173,7 @@ export default class AddGiftPage extends React.Component {
     }
   }
 
-  //grabs value of gender buttons
-  //TODO seperate
-  handleChange = (e) => {
-    this.setState({
-      signUpGenderSelect: e.target.value,
-      setInterestSelected: e.target.value,
-      setAgeSelected: e.target.value,
-    });
-    console.log(e.target.value);
-  };
-
-  validateGiftInfo() {
+  async validateGiftInfo() {
     const titleInput = document.getElementById("title-input").value;
     const photoInput = document.getElementById("photo-input").value;
     const urlInput = document.getElementById("url-input").value;
@@ -188,15 +188,24 @@ export default class AddGiftPage extends React.Component {
 
     // const ageInput = document.getElementById("age-input").value;
     const priceInput = document.getElementById("price-input").value;
-    this.checkForTitleError(titleInput);
-    this.checkForPhotoError(photoInput);
-    this.checkForUrlError(urlInput);
-    this.checkForDescError(descInput);
-    this.checkIfGenderIsSelected(signUpGenderSelect);
-    this.checkForInterestError(setInterestSelected);
-    this.checkForAgeError(setAgeSelected);
-    this.checkForPriceError(priceInput);
-    if (titleInput === "" || photoInput === "") {
+    await this.checkForTitleError(titleInput);
+    await this.checkForPhotoError(photoInput);
+    await this.checkForUrlError(urlInput);
+    await this.checkForDescError(descInput);
+    await this.checkIfGenderIsSelected(signUpGenderSelect);
+    await this.checkForInterestError(setInterestSelected);
+    await this.checkForAgeError(setAgeSelected);
+    await this.checkForPriceError(priceInput);
+    if (
+      titleInput === "" ||
+      photoInput === "" ||
+      urlInput === "" ||
+      descInput === "" ||
+      signUpGenderSelect === "" ||
+      setInterestSelected === "" ||
+      setAgeSelected === "" ||
+      priceInput === ""
+    ) {
       this.setState({
         hasBlankInputs: "All input must be filled out",
       });
@@ -205,7 +214,48 @@ export default class AddGiftPage extends React.Component {
         hasBlankInputs: "",
       });
     }
+    if (
+      this.state.hasTitleError === false
+      // &&
+      // this.state.hasPhotoError === false &&
+      // this.state.hasUrlError === false &&
+      // this.state.hasDescError === false &&
+      // this.state.isGenderSelected === false &&
+      // this.state.hasInterestError === false &&
+      // this.state.hasAgeError === false &&
+      // this.state.hasPriceError === false
+    ) {
+      const userId = users[0].id;
+      const newGift = {
+        id: getUuid(),
+        createdAt: Date.now(),
+        createdByUserId: userId,
+        // go back and fix, ask Mike how to grab data
+        title: titleInput,
+        photo: photoInput,
+        url: urlInput,
+        desc: descInput,
+        gender: signUpGenderSelect,
+        interest: setInterestSelected,
+        age: setAgeSelected,
+        price: priceInput,
+      };
+      console.log(newGift);
+      this.props.history.push("/");
+    }
   }
+  // id: "501f6331-3273-416c-a40b-e06d2c8440fd",
+  //   createdAt: 1592855191798,
+  //   createdByUserId: "dbffe071-b5f6-4e70-8df7-2583fd274345",
+  //   title: "Vitamix",
+  //   photo: String,
+  //   url: String,
+  //   desc: "Description Text",
+  //   gender: "Gender Neutral",
+  //   interest: "Home Appliances",
+  //   age: 3, //MVP only allow one filter
+  //   price: 20000,
+
   // checkIfTitleHasInvalidCharCount() {
   //   if (this.state.titleText.length > 50) {
   //     return true;
@@ -381,7 +431,7 @@ export default class AddGiftPage extends React.Component {
                     name="options"
                     id="option1"
                     checked={this.state.signUpGenderSelect === "option1"}
-                    onChange={this.handleChange}
+                    onChange={(e) => this.setGenderValue(e)}
                     onClick={() => {
                       this.checkIfGenderIsSelected();
                     }}
@@ -403,7 +453,7 @@ export default class AddGiftPage extends React.Component {
                     name="options"
                     id="option2"
                     checked={this.state.signUpGenderSelect === "option2"}
-                    onChange={this.handleChange}
+                    onChange={(e) => this.setGenderValue(e)}
                     onClick={() => {
                       this.checkIfGenderIsSelected();
                     }}
@@ -424,7 +474,7 @@ export default class AddGiftPage extends React.Component {
                     name="options"
                     id="option3"
                     checked={this.state.signUpGenderSelect === "option3"}
-                    onChange={this.handleChange}
+                    onChange={(e) => this.setGenderValue(e)}
                     onClick={() => {
                       this.checkIfGenderIsSelected();
                     }}
@@ -452,7 +502,7 @@ export default class AddGiftPage extends React.Component {
                   })}
                   id="interest-input"
                   checked={this.state.setInterestSelected === "interest-input"}
-                  onChange={this.handleChange}
+                  onChange={(e) => this.setInterestValue(e)}
                 >
                   <option value="0">Nothing Selected</option>
                   <option value="1">Arts and Crafts</option>
@@ -487,7 +537,7 @@ export default class AddGiftPage extends React.Component {
                   })}
                   id="age-input"
                   checked={this.state.setAgeSelected === "age-input"}
-                  onChange={this.handleChange}
+                  onChange={(e) => this.setAgeValue(e)}
                 >
                   <option value="0">-----</option>
                   <option value="1">Under 12</option>
@@ -556,3 +606,5 @@ export default class AddGiftPage extends React.Component {
     );
   }
 }
+
+export default withRouter(AddGiftPage);
