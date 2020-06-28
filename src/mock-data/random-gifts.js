@@ -7,8 +7,8 @@ const randomGifts = [
     photo: String,
     url: String,
     desc: "Description Text",
-    gender: "Gender Neutral",
-    interest: "Home Appliances",
+    gender: 3,
+    interest: 11,
     age: 3, //MVP only allow one filter
     price: 20000, //price is in cents 20000 = $200, make conversion
   },

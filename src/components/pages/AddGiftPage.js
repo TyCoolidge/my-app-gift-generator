@@ -66,7 +66,6 @@ class AddGiftPage extends React.Component {
   setGenderValue(e) {
     this.setState({ signUpGenderSelect: e.target.value });
   }
-
   setInterestValue(e) {
     this.setState({ setInterestSelected: e.target.value });
   }
@@ -215,15 +214,14 @@ class AddGiftPage extends React.Component {
       });
     }
     if (
-      this.state.hasTitleError === false
-      // &&
-      // this.state.hasPhotoError === false &&
-      // this.state.hasUrlError === false &&
-      // this.state.hasDescError === false &&
-      // this.state.isGenderSelected === false &&
-      // this.state.hasInterestError === false &&
-      // this.state.hasAgeError === false &&
-      // this.state.hasPriceError === false
+      this.state.hasTitleError === false &&
+      this.state.hasPhotoError === false &&
+      this.state.hasUrlError === false &&
+      this.state.hasDescError === false &&
+      this.state.isGenderSelected === false &&
+      this.state.hasInterestError === false &&
+      this.state.hasAgeError === false &&
+      this.state.hasPriceError === false
     ) {
       const userId = users[0].id;
       const newGift = {
@@ -284,12 +282,12 @@ class AddGiftPage extends React.Component {
               Add or Edit Gift
             </h2>
             {this.state.hasBlankInputs && (
-              <big className="form-text text-danger text-center">
+              <big className="form-text text-danger text-center mt-3">
                 All fields need to be filled out
               </big>
             )}
 
-            <div className="form-group row mt-3">
+            <div className="form-group row mt-1">
               <label
                 htmlFor="inputPassword"
                 className="col-sm-3 col-md-2 col-form-label"
@@ -515,6 +513,7 @@ class AddGiftPage extends React.Component {
                   <option value="8">Music</option>
                   <option value="9">Fashion</option>
                   <option value="10">Games</option>
+                  <option value="11">Home Appliances</option>
                 </select>
               </div>
               {/* TODO add multiselect with tags, need to make a component? */}

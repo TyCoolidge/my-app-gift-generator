@@ -1,5 +1,7 @@
 const randomGiftData = {
   id: String,
+  createdAt: String,
+  createdByUserId: String,
   title: String,
   photo: String,
   url: String,
