@@ -8,7 +8,7 @@ import { checkIsOver } from "../utils/helpers";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import { v4 as getUuid } from "uuid";
-import { users } from "../../mock-data/users";
+import users from "../../mock-data/users";
 
 class AddGiftPage extends React.Component {
   constructor(props) {
@@ -178,10 +178,7 @@ class AddGiftPage extends React.Component {
     const urlInput = document.getElementById("url-input").value;
     const descInput = document.getElementById("desc-input").value;
     const signUpGenderSelect = this.state.signUpGenderSelect;
-    // const maleSelect = document.getElementById("option1").value;
-    // const femaleSelect = document.getElementById("option2").value;
-    // const neutralSelect = document.getElementById("option3").value;
-    //TODO seperate id for each  btn
+
     const setInterestSelected = this.state.setInterestSelected;
     const setAgeSelected = this.state.setAgeSelected;
 
@@ -237,6 +234,7 @@ class AddGiftPage extends React.Component {
         interest: setInterestSelected,
         age: setAgeSelected,
         price: priceInput,
+        // price in cents
       };
       console.log(newGift);
       this.props.history.push("/");
@@ -263,6 +261,16 @@ class AddGiftPage extends React.Component {
     return (
       <div className="container">
         <div className="row mt-5">
+          <div className="col">
+            <Link to="/account-page" className="">
+              My Account
+            </Link>
+            <Link to="/login-page" className="float-right">
+              Log Out
+            </Link>
+          </div>
+        </div>
+        <div className="row mt-1">
           <Header />
           {/* TODO make cols a component */}
         </div>
