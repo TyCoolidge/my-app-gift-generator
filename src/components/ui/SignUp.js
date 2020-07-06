@@ -230,6 +230,7 @@ class SignUp extends React.Component {
                       "is-invalid": this.state.hasUserNameError,
                       "is-valid": this.state.hasUserNameSuccess,
                     })}
+                    placeholder="Create username"
                     id="user-name-input"
                   />{" "}
                   {this.state.hasUserNameError && (

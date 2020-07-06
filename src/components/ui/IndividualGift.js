@@ -20,7 +20,7 @@ export default function IndividualGift(props) {
             <br />
           </div>
           <div className="mb-2">
-            Description: {props.desc}
+            Description: {props.description}
             <br />
           </div>
           <div className="mb-2">Price: ${props.price}</div>

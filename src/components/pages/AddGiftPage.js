@@ -230,33 +230,16 @@ class AddGiftPage extends React.Component {
         photo: photoInput,
         url: urlInput,
         desc: descInput,
-        gender: signUpGenderSelect,
-        interest: setInterestSelected,
-        age: setAgeSelected,
-        price: priceInput,
+        gender: Number(signUpGenderSelect),
+        interest: Number(setInterestSelected),
+        age: Number(setAgeSelected),
+        price: Number(priceInput * 100),
         // price in cents
       };
       console.log(newGift);
       this.props.history.push("/");
     }
   }
-  // id: "501f6331-3273-416c-a40b-e06d2c8440fd",
-  //   createdAt: 1592855191798,
-  //   createdByUserId: "dbffe071-b5f6-4e70-8df7-2583fd274345",
-  //   title: "Vitamix",
-  //   photo: String,
-  //   url: String,
-  //   desc: "Description Text",
-  //   gender: "Gender Neutral",
-  //   interest: "Home Appliances",
-  //   age: 3, //MVP only allow one filter
-  //   price: 20000,
-
-  // checkIfTitleHasInvalidCharCount() {
-  //   if (this.state.titleText.length > 50) {
-  //     return true;
-  //   } else return false;
-  // }
   render() {
     return (
       <div className="container">

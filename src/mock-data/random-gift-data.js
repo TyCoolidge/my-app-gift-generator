@@ -5,7 +5,7 @@ const randomGiftData = {
   title: String,
   photo: String,
   url: String,
-  desc: String,
+  description: String,
   gender: String,
   interest: String,
   age: String,
