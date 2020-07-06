@@ -6,46 +6,55 @@ import randomGifts from "../../mock-data/random-gifts";
 // import orderBy from "lodash/orderBy";
 import filter from "lodash/filter";
 import _ from "lodash";
+import axios from "axios";
+import { connect } from "react-redux";
+import actions from "../../store/actions";
 
-export default class HomePage extends React.Component {
+class HomePage extends React.Component {
   constructor(props) {
     super(props);
+    axios
+      .get("https://run.mocky.io/v3/e3a916f2-e011-4d6a-8260-2d0a4d1cbf85")
+      .then(function (res) {
+        console.log(res);
+        props.dispatch({
+          type: actions.STORE_ALL_GIFTS,
+          payload: res.data,
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    /* user: []
+       currentGift: []
+       (when clicking edit page)
+
+      TODO for redux
+       add redux to keep user logged in and only display the gifts they created, when clicking on edit button on account page, use redux to fillin the inputs on create gift.
+       if user is not logged in, account link redirects to login page. Save gift information to global state to populate to main page
+       */
+
     this.state = {
       displayedGifts: filter(randomGifts),
-      allGifts: filter(randomGifts),
       orderBy: filter(randomGifts), //default value
-      ll: (randomGifts.price = _.range(0, 2501)),
     };
-    console.log(this.state.ll);
   }
   filteringGifts() {
     const filteredArr = JSON.parse(this.state.orderBy);
-    const orderedCards = filter(filteredArr);
-    this.setState({ displayedGifts: orderedCards });
+    this.setState({ displayedGifts: filteredArr });
   }
   //TODO adjust filters so they do not overlap each other
+  giftRange() {
+    const giftPrice = randomGifts.price;
+    if (giftPrice > 0 || giftPrice <= 2500) {
+      return filter(randomGifts, { giftPrice });
+    }
+  }
 
-  setGenderOrder(e) {
+  setCurrentFilter(e) {
     this.setState({ orderBy: e.target.value }, () => {
-      return this.filteringGifts(); // return the filteredCards that follow the order parameters
-    });
-    console.log(e.target.value);
-  }
-  setAgeOrder(e) {
-    this.setState({ orderBy: e.target.value }, () => {
-      return this.filteringGifts(); // return the filteredCards that follow the order parameters
-    });
-    console.log(e.target.value);
-  }
-  setInterestOrder(e) {
-    this.setState({ orderBy: e.target.value }, () => {
-      return this.filteringGifts(); // return the filteredCards that follow the order parameters
-    });
-    console.log(e.target.value);
-  }
-  setPriceOrder(e) {
-    this.setState({ orderBy: e.target.value }, () => {
-      return this.filteringGifts(); // return the filteredCards that follow the order parameters
+      return this.filteringGifts(); // return the filteredGifts that follow the order parameters
     });
     console.log(e.target.value);
   }
@@ -90,11 +99,9 @@ export default class HomePage extends React.Component {
             <select
               className="custom-select"
               id="gender-dropdown"
-              onChange={(e) => this.setGenderOrder(e)}
+              onChange={(e) => this.setCurrentFilter(e)}
             >
-              <option value={JSON.stringify(this.state.allGifts)}>
-                Nothing Selected
-              </option>
+              <option value="">Nothing Selected</option>
               <option
                 value={JSON.stringify(filter(randomGifts, { gender: 1 }))}
               >
@@ -115,11 +122,9 @@ export default class HomePage extends React.Component {
           <div className="col-3">
             <select
               className="custom-select"
-              onChange={(e) => this.setGenderOrder(e)}
+              onChange={(e) => this.setCurrentFilter(e)}
             >
-              <option value={JSON.stringify(this.state.allGifts)}>
-                Nothing Selected
-              </option>
+              <option value="">Nothing Selected</option>
               <option value={JSON.stringify(filter(randomGifts, { age: 1 }))}>
                 Under 12
               </option>
@@ -150,11 +155,9 @@ export default class HomePage extends React.Component {
           <div className="col-3">
             <select
               className="custom-select"
-              onChange={(e) => this.setGenderOrder(e)}
+              onChange={(e) => this.setCurrentFilter(e)}
             >
-              <option value={JSON.stringify(this.state.allGifts)}>
-                Nothing Selected
-              </option>
+              <option value="">Nothing Selected</option>
               <option
                 value={JSON.stringify(filter(randomGifts, { interest: 1 }))}
               >
@@ -216,21 +219,21 @@ export default class HomePage extends React.Component {
           <div className="col-3">
             <select
               className="custom-select"
-              onChange={(e) => this.setGenderOrder(e)}
+              onChange={(e) => this.setCurrentFilter(e)}
             >
-              <option value={JSON.stringify(this.state.allGifts)}>
-                Nothing Selected
-              </option>
+              <option value="">Nothing Selected</option>
               <option
-                value={JSON.stringify(
-                  filter(randomGifts, { price: 2500 || 2000 })
-                )}
+                value=""
                 // add ranges for prices
               >
                 Under $25
               </option>
               <option
-                value={JSON.stringify(filter(randomGifts, { price: 5000 }))}
+                value={JSON.stringify(
+                  filter(randomGifts, {
+                    price: _.range(2501).includes(randomGifts.price),
+                  })
+                )}
               >
                 $25-$50
               </option>
@@ -295,3 +298,8 @@ export default class HomePage extends React.Component {
     );
   }
 }
+
+function mapStateToProps() {
+  return {};
+}
+export default connect(mapStateToProps)(HomePage);

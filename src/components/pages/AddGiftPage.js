@@ -9,6 +9,8 @@ import ToggleButton from "react-bootstrap/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import { v4 as getUuid } from "uuid";
 import users from "../../mock-data/users";
+import { connect } from "react-redux";
+import actions from "../../store/actions";
 
 class AddGiftPage extends React.Component {
   constructor(props) {
@@ -596,5 +598,7 @@ class AddGiftPage extends React.Component {
     );
   }
 }
-
-export default withRouter(AddGiftPage);
+function mapStateToProps() {
+  return {};
+}
+export default withRouter(connect(mapStateToProps)(AddGiftPage));

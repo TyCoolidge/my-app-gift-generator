@@ -13,8 +13,10 @@ import users from "../../mock-data/users";
 import randomGifts from "../../mock-data/random-gifts";
 import toDisplayDate from "date-fns/format";
 import Header from "../ui/Header";
+import { connect } from "react-redux";
+import actions from "../../store/actions";
 
-export default class AccountPage extends React.Component {
+class AccountPage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -25,6 +27,8 @@ export default class AccountPage extends React.Component {
     console.log(this.state.currentUserName.id, this.state.filteredUserGifts);
   }
   render() {
+    const currentUserAccount = this.props.userAccount;
+
     return (
       <div className="container">
         <div className="row mt-5">
@@ -93,3 +97,9 @@ export default class AccountPage extends React.Component {
     );
   }
 }
+function mapStateToProps(state) {
+  return {
+    userAccount: state.userAccount,
+  };
+}
+export default connect(mapStateToProps)(AccountPage);

@@ -2,12 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 // import randomGifts from "../../mock-data/random-gifts";
 // import users from "../../mock-data/users";
+import { connect } from "react-redux";
+import actions from "../../store/actions";
 
-export default class UserGifts extends React.Component {
+class UserGifts extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {};
+  }
+  editCurrentGift() {
+    this.props.dispatch({ type: actions.STORE_CURRENT_GIFT });
+    this.props.history.push("/add-gift-page");
   }
   render() {
     return (
@@ -38,9 +44,13 @@ export default class UserGifts extends React.Component {
           <div className="col float-right">
             {/* when user clicks on edit, the addgiftpage should be prefilled with "clicked" gifts data */}
             <Link
-              to="/add-gift-page"
+              to="#"
               className="float-right btn-sm btn-primary"
+              onClick={() => {
+                this.editCurrentGift();
+              }}
             >
+              {/* needs on click that saves its data */}
               Edit
             </Link>
           </div>
@@ -51,3 +61,8 @@ export default class UserGifts extends React.Component {
     );
   }
 }
+
+function mapStateToProps() {
+  return {};
+}
+export default connect(mapStateToProps)(UserGifts);
