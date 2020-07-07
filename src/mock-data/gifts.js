@@ -1,4 +1,4 @@
-const randomGifts = [
+const gifts = [
   {
     id: "501f6331-3273-416c-a40b-e06d2c8440fd",
     createdAt: 1592855191798,
@@ -22,7 +22,7 @@ const randomGifts = [
     description: "Description Text2",
     gender: 1,
     interest: 3,
-    age: 3,
+    age: 4,
     price: 2500,
   },
   {
@@ -53,4 +53,4 @@ const randomGifts = [
   },
 ];
 
-export default randomGifts;
+export default gifts;

@@ -10,7 +10,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import UserGifts from "../ui/UserGifts";
 import users from "../../mock-data/users";
-import randomGifts from "../../mock-data/random-gifts";
+import gifts from "../../mock-data/gifts";
 import toDisplayDate from "date-fns/format";
 import Header from "../ui/Header";
 import { connect } from "react-redux";
@@ -22,7 +22,7 @@ class AccountPage extends React.Component {
 
     this.state = {
       currentUserName: users[0], //need to change to current user, can do with redux
-      filteredUserGifts: randomGifts,
+      filteredUserGifts: gifts,
     };
     console.log(this.state.currentUserName.id, this.state.filteredUserGifts);
   }
@@ -78,7 +78,7 @@ class AccountPage extends React.Component {
             </div>
           </div>
         </div>
-        {randomGifts
+        {gifts
           .filter((gifts) => {
             //filter comes first "higher order"
             return gifts.createdByUserId === this.state.currentUserName.id;

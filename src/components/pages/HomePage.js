@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Header from "../ui/Header";
 import IndividualGift from "../ui/IndividualGift";
-import randomGifts from "../../mock-data/random-gifts";
+import gifts from "../../mock-data/gifts";
 // import orderBy from "lodash/orderBy";
 import filter from "lodash/filter";
 import _ from "lodash";
@@ -36,27 +36,113 @@ class HomePage extends React.Component {
        */
 
     this.state = {
-      displayedGifts: filter(randomGifts),
-      orderBy: filter(randomGifts), //default value
+      displayedGifts: gifts,
+      allGifts: gifts,
+      gender: 0,
+      age: 0,
+      interest: 0,
+      price: 0,
     };
   }
-  filteringGifts() {
-    const filteredArr = JSON.parse(this.state.orderBy);
-    this.setState({ displayedGifts: filteredArr });
-  }
-  //TODO adjust filters so they do not overlap each other
-  giftRange() {
-    const giftPrice = randomGifts.price;
-    if (giftPrice > 0 || giftPrice <= 2500) {
-      return filter(randomGifts, { giftPrice });
-    }
-  }
 
-  setCurrentFilter(e) {
-    this.setState({ orderBy: e.target.value }, () => {
-      return this.filteringGifts(); // return the filteredGifts that follow the order parameters
+  setGender(e) {
+    this.setState({ gender: Number(e.target.value) }, () => {
+      this.setDisplayedGifts();
     });
-    console.log(e.target.value);
+  }
+  setAge(e) {
+    this.setState({ age: Number(e.target.value) }, () => {
+      this.setDisplayedGifts();
+    });
+  }
+  setInterest(e) {
+    this.setState({ interest: Number(e.target.value) }, () => {
+      this.setDisplayedGifts();
+    });
+  }
+  setPrice(e) {
+    this.setState({ price: Number(e.target.value) }, () => {
+      this.setDisplayedGifts();
+    });
+  }
+  setDisplayedGifts() {
+    const gifts = [...this.state.allGifts];
+    if (this.state.gender !== 0) {
+      //if gender is selected
+      const filteredGifts = gifts.filter((gift) => {
+        return gift.gender === this.state.gender;
+      });
+      this.setState({ displayedGifts: filteredGifts });
+    }
+    if (this.state.age !== 0) {
+      //if age is selected
+      const filteredGifts = gifts.filter((gift) => {
+        return gift.age === this.state.age;
+      });
+      this.setState({ displayedGifts: filteredGifts });
+    }
+    if (this.state.interest !== 0) {
+      //if interest is selected
+      const filteredGifts = gifts.filter((gift) => {
+        return gift.interest === this.state.interest;
+      });
+      this.setState({ displayedGifts: filteredGifts });
+    }
+    if (this.state.price !== 0) {
+      //if price is selected
+      const filteredGifts = gifts.filter((gift) => {
+        return gift.price === this.state.price;
+      });
+      this.setState({ displayedGifts: filteredGifts });
+    }
+    //price ranges start
+    if (this.state.price === 1) {
+      //if price is selected
+      const filteredGifts = gifts.filter((gift) => {
+        return gift.price <= 2500;
+      });
+      this.setState({ displayedGifts: filteredGifts });
+    } else if (this.state.price === 2) {
+      //if price is selected
+      const filteredGifts = gifts.filter((gift) => {
+        return gift.price > 2500 && gift.price <= 5000;
+      });
+      this.setState({ displayedGifts: filteredGifts });
+    } else if (this.state.price === 3) {
+      //if price is selected
+      const filteredGifts = gifts.filter((gift) => {
+        return gift.price > 5000 && gift.price <= 7500;
+      });
+      this.setState({ displayedGifts: filteredGifts });
+    } else if (this.state.price === 4) {
+      //if price is selected
+      const filteredGifts = gifts.filter((gift) => {
+        return gift.price > 7500 && gift.price <= 10000;
+      });
+      this.setState({ displayedGifts: filteredGifts });
+    } else if (this.state.price === 5) {
+      //if price is selected
+      const filteredGifts = gifts.filter((gift) => {
+        return gift.price > 10000 && gift.price <= 20000;
+      });
+      this.setState({ displayedGifts: filteredGifts });
+    } else if (this.state.price === 6) {
+      //if price is selected
+      const filteredGifts = gifts.filter((gift) => {
+        return gift.price > 20000;
+      });
+      this.setState({ displayedGifts: filteredGifts });
+    }
+    //price range end
+
+    if (
+      this.state.gender === 0 &&
+      this.state.age === 0 &&
+      this.state.interest === 0 &&
+      this.state.price === 0
+    ) {
+      this.setState({ displayedGifts: this.state.allGifts });
+    }
   }
 
   render() {
@@ -99,172 +185,75 @@ class HomePage extends React.Component {
             <select
               className="custom-select"
               id="gender-dropdown"
-              onChange={(e) => this.setCurrentFilter(e)}
+              value={this.state.gender}
+              onChange={(e) => this.setGender(e)}
             >
-              <option value="">Nothing Selected</option>
-              <option
-                value={JSON.stringify(filter(randomGifts, { gender: 1 }))}
-              >
-                Male
-              </option>
-              <option
-                value={JSON.stringify(filter(randomGifts, { gender: 2 }))}
-              >
-                Female
-              </option>
-              <option
-                value={JSON.stringify(filter(randomGifts, { gender: 3 }))}
-              >
-                Gender Neutral
-              </option>
+              <option value={0}>Nothing Selected</option>
+              <option value={1}>Male</option>
+              <option value={2}>Female</option>
+              <option value={3}>Gender Neutral</option>
             </select>
           </div>
           <div className="col-3">
             <select
               className="custom-select"
-              onChange={(e) => this.setCurrentFilter(e)}
+              id="age-dropdown"
+              value={this.state.age}
+              onChange={(e) => this.setAge(e)}
             >
-              <option value="">Nothing Selected</option>
-              <option value={JSON.stringify(filter(randomGifts, { age: 1 }))}>
-                Under 12
-              </option>
-              <option value={JSON.stringify(filter(randomGifts, { age: 2 }))}>
-                12-17
-              </option>
-              <option value={JSON.stringify(filter(randomGifts, { age: 3 }))}>
-                18-24
-              </option>
-              <option value={JSON.stringify(filter(randomGifts, { age: 4 }))}>
-                25-34
-              </option>
-              <option value={JSON.stringify(filter(randomGifts, { age: 5 }))}>
-                35-44
-              </option>
-              <option value={JSON.stringify(filter(randomGifts, { age: 6 }))}>
-                45-54
-              </option>
-              <option value={JSON.stringify(filter(randomGifts, { age: 7 }))}>
-                55+
-              </option>
-              <option value={JSON.stringify(filter(randomGifts, { age: 8 }))}>
-                All Ages
-              </option>
+              <option value={0}>Nothing Selected</option>
+              <option value={1}>Under 12</option>
+              <option value={2}>12-17</option>
+              <option value={3}>18-24</option>
+              <option value={4}>25-34</option>
+              <option value={5}>35-44</option>
+              <option value={6}>45-54</option>
+              <option value={7}>55+</option>
+              <option value={8}>All ages</option>
             </select>
           </div>
           {/* Allow multiple selects */}
           <div className="col-3">
             <select
               className="custom-select"
-              onChange={(e) => this.setCurrentFilter(e)}
+              id="interest-dropdown"
+              value={this.state.interest}
+              onChange={(e) => this.setInterest(e)}
             >
-              <option value="">Nothing Selected</option>
-              <option
-                value={JSON.stringify(filter(randomGifts, { interest: 1 }))}
-              >
-                Arts and Crafts
-              </option>
-              <option
-                value={JSON.stringify(filter(randomGifts, { interest: 2 }))}
-              >
-                Collectibles
-              </option>
-              <option
-                value={JSON.stringify(filter(randomGifts, { interest: 3 }))}
-              >
-                Electronics
-              </option>
-              <option
-                value={JSON.stringify(filter(randomGifts, { interest: 4 }))}
-              >
-                Jewelry
-              </option>
-              <option
-                value={JSON.stringify(filter(randomGifts, { interest: 5 }))}
-              >
-                Toys
-              </option>
-              <option
-                value={JSON.stringify(filter(randomGifts, { interest: 6 }))}
-              >
-                Sports & Recreation
-              </option>
-              <option
-                value={JSON.stringify(filter(randomGifts, { interest: 7 }))}
-              >
-                Outdoors
-              </option>
-              <option
-                value={JSON.stringify(filter(randomGifts, { interest: 8 }))}
-              >
-                Music
-              </option>
-              <option
-                value={JSON.stringify(filter(randomGifts, { interest: 9 }))}
-              >
-                Fashion
-              </option>
-              <option
-                value={JSON.stringify(filter(randomGifts, { interest: 10 }))}
-              >
-                Games
-              </option>
-              <option
-                value={JSON.stringify(filter(randomGifts, { interest: 11 }))}
-              >
-                Home Appliances
-              </option>
+              <option value={0}>Nothing Selected</option>
+              <option value={1}>Arts and Crafts</option>
+              <option value={2}>Collectibles</option>
+              <option value={3}>Electronics</option>
+              <option value={4}>Jewelry</option>
+              <option value={5}>Toys</option>
+              <option value={6}>Sports & Recreation</option>
+              <option value={7}>Outdoors</option>
+              <option value={8}>Music</option>
+              <option value={9}>Fashion</option>
+              <option value={10}>Games</option>
+              <option value={11}>Home Appliances</option>
             </select>
           </div>
           {/* Maybe add dragbar to adjust range */}
           <div className="col-3">
             <select
               className="custom-select"
-              onChange={(e) => this.setCurrentFilter(e)}
+              id="price-dropdown"
+              value={this.state.price}
+              onChange={(e) => this.setPrice(e)}
             >
-              <option value="">Nothing Selected</option>
+              <option value={0}>Nothing Selected</option>
               <option
-                value=""
+                value={1}
                 // add ranges for prices
               >
                 Under $25
               </option>
-              <option
-                value={JSON.stringify(
-                  filter(randomGifts, {
-                    price: _.range(2501).includes(randomGifts.price),
-                  })
-                )}
-              >
-                $25-$50
-              </option>
-              <option
-                value={JSON.stringify(
-                  filter(randomGifts, { price: 5000 - 7500 })
-                )}
-              >
-                $50-$75
-              </option>
-              <option
-                value={JSON.stringify(
-                  filter(randomGifts, { price: 7500 - 10000 })
-                )}
-              >
-                $75-$100
-              </option>
-              <option
-                value={JSON.stringify(
-                  filter(randomGifts, { price: 10000 - 20000 })
-                )}
-              >
-                $100-$200
-              </option>
-              <option
-                value={JSON.stringify(
-                  filter(randomGifts, { price: 20000 - 1000000 })
-                )}
-              >
-                $200+
-              </option>
+              <option value={2}>$25-$50</option>
+              <option value={3}>$50-$75</option>
+              <option value={4}>$75-$100</option>
+              <option value={5}>$100-$200</option>
+              <option value={6}>$200+</option>
             </select>
           </div>
         </div>
@@ -281,7 +270,7 @@ class HomePage extends React.Component {
           </div>
         </div>
         <div className="mb-2 ">
-          {/* map method use to iterate through randomGifts array returning the values shown below from our data */}
+          {/* map method use to iterate through gifts array returning the values shown below from our data */}
           {this.state.displayedGifts.map((gifts) => {
             return (
               <IndividualGift
@@ -291,7 +280,6 @@ class HomePage extends React.Component {
                 key={gifts.id}
               />
             );
-            //filter comes first "higher order"
           })}
         </div>
       </div>
