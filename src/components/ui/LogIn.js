@@ -4,6 +4,9 @@ import classnames from "classnames";
 import hash from "object-hash";
 import { v4 as getUuid } from "uuid";
 import { withRouter } from "react-router-dom";
+import axios from "axios";
+import actions from "../../store/actions";
+import { connect } from "react-redux";
 
 class LogIn extends React.Component {
   constructor(props) {
@@ -18,6 +21,7 @@ class LogIn extends React.Component {
       hasPasswordSuccess: false,
     };
   }
+  componentDidMount() {}
 
   async setLogInEmailState(logInEmailInput) {
     // eslint-disable-next-line
@@ -75,7 +79,20 @@ class LogIn extends React.Component {
         password: hash(logInPasswordInput),
         createdAt: Date.now(),
       };
-      console.log(logUser);
+      console.log("created user object", logUser);
+      axios
+        .get("https://run.mocky.io/v3/624bafeb-1593-4c68-9f9b-5952d2111755")
+        .then((res) => {
+          const currentUser = res.data[0];
+          console.log(currentUser);
+          this.props.dispatch({
+            type: actions.UPDATE_CURRENT_USER,
+            payload: currentUser,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       this.props.history.push("/add-gift-page");
     }
   }
@@ -152,4 +169,7 @@ class LogIn extends React.Component {
   }
 }
 
-export default withRouter(LogIn);
+function mapStateToProps(state) {
+  return {};
+}
+export default withRouter(connect(mapStateToProps)(LogIn));

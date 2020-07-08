@@ -1,5 +1,4 @@
 /*Username up top  logout on top left
-
 Your gifts
 list of gifts similar to homepage, each gift linked to username
 edit buttons next to each gift
@@ -8,13 +7,14 @@ saving edited gift reflects on userpage and homepage
 */
 import React from "react";
 import { Link } from "react-router-dom";
-import UserGifts from "../ui/UserGifts";
+import UserGift from "../ui/UserGift";
 import users from "../../mock-data/users";
 import gifts from "../../mock-data/gifts";
 import toDisplayDate from "date-fns/format";
 import Header from "../ui/Header";
 import { connect } from "react-redux";
 import actions from "../../store/actions";
+import axios from "axios";
 
 class AccountPage extends React.Component {
   constructor(props) {
@@ -26,14 +26,25 @@ class AccountPage extends React.Component {
     };
     console.log(this.state.currentUserName.id, this.state.filteredUserGifts);
   }
-  render() {
-    const currentUserAccount = this.props.userAccount;
 
+  logOutCurrentUser() {
+    this.props.dispatch({
+      type: actions.UPDATE_CURRENT_USER,
+      payload: {},
+    });
+  }
+  render() {
     return (
       <div className="container">
         <div className="row mt-5">
           <div className="col-12">
-            <Link to="/login-page" className="float-right">
+            <Link
+              to="/login-page"
+              className="float-right"
+              onClick={() => {
+                this.logOutCurrentUser();
+              }}
+            >
               Log Out
             </Link>
           </div>
@@ -79,27 +90,21 @@ class AccountPage extends React.Component {
           </div>
         </div>
         {gifts
-          .filter((gifts) => {
+          .filter((gift) => {
             //filter comes first "higher order"
-            return gifts.createdByUserId === this.state.currentUserName.id;
+            return gift.createdByUserId === this.state.currentUserName.id;
           })
-          .map((gifts) => {
-            return (
-              <UserGifts
-                title={gifts.title}
-                description={gifts.description}
-                price={(gifts.price / 100).toFixed(2)}
-                key={gifts.createdByUserId}
-              />
-            );
+          .map((gift) => {
+            return <UserGift gift={gift} key={gift.id} />;
           })}
       </div>
     );
   }
 }
+
 function mapStateToProps(state) {
   return {
-    userAccount: state.userAccount,
+    currentUser: state.currentUser,
   };
 }
 export default connect(mapStateToProps)(AccountPage);

@@ -3,19 +3,20 @@ const gifts = [
     id: "501f6331-3273-416c-a40b-e06d2c8440fd",
     createdAt: 1592855191798,
     createdByUserId: "dbffe071-b5f6-4e70-8df7-2583fd274345",
-    title: "Vitamix",
-    photo: String,
-    url: String,
-    description: "Description Text",
+    title: "Vitamix E310 Explorian Blender",
+    photo: "vitamix.jpeg",
+    url:
+      "https://www.amazon.com/Vitamix-E310-Explorian-Professional-Grade-Container/dp/B0758JHZM3/ref=sr_1_2?dchild=1&keywords=vitamix&qid=1594237685&sr=8-2",
+    description: "The best blender of all time",
     gender: 1,
     interest: 11,
     age: 3, //MVP only allow one filter
-    price: 20000, //price is in cents 20000 = $200, make conversion
+    price: 34995, //price is in cents 20000 = $200, make conversion
   },
   {
     id: "8ca3c483-0566-497f-a717-cea008833167",
     createdAt: 1592855191796,
-    createdByUserId: "ddd4cfc1-7606-4fda-9081-ab2942865999",
+    createdByUserId: "bobfe071-b5f6-4e70-8df7-2583fd274345",
     title: "USB Charger Station",
     photo: String,
     url: String,

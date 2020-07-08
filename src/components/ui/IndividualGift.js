@@ -9,21 +9,23 @@ export default function IndividualGift(props) {
           {/* TODO add linebreaks */}
           <div className="containsImage fitToImageContainer">
             <div className="">
-              <img alt="item" url={props.img} />
+              <img alt="item" url={props.gift.img} />
             </div>
           </div>
         </div>
         {/* fix format of text below */}
         <div className="mt-3 giftInfoSize">
           <div className="mb-2">
-            Name: {props.title}
+            Name: {props.gift.title}
             <br />
           </div>
           <div className="mb-2">
-            Description: {props.description}
+            Description: {props.gift.description}
             <br />
           </div>
-          <div className="mb-2">Price: ${props.price}</div>
+          <div className="mb-2">
+            Price: ${(props.gift.price / 100).toFixed(2)}
+          </div>
         </div>
       </div>
       <hr />

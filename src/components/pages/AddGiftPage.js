@@ -295,7 +295,7 @@ class AddGiftPage extends React.Component {
                     "is-invalid": this.state.hasTitleError,
                     "is-valid": this.state.hasTitleSuccess,
                   })}
-                  placeholder="Name of item"
+                  defaultValue={this.props.editableGift.title}
                   onChange={(e) => this.setTitleText(e)}
                   id="title-input"
                 />
@@ -323,6 +323,7 @@ class AddGiftPage extends React.Component {
                       "is-invalid": this.state.hasPhotoError,
                       "is-valid": this.state.hasPhotoSuccess,
                     })}
+                    // defaultValue={this.props.editableGift.photo}
                     id="photo-input"
                     onChange={(e) => this.setPhotoText(e)}
                   />
@@ -333,16 +334,6 @@ class AddGiftPage extends React.Component {
                     {this.state.uploadFile}
                   </label>
                 </div>
-
-                {/* <input
-                  type="file"
-                  className={classnames({
-                    "custom-file-input": true,
-                    "invalid-feedback": this.state.hasPhotoError,
-                    "is-valid": this.state.hasPhotoSuccess,
-                  })}
-                  id="photo-input"
-                /> */}
               </div>
             </form>
             {/* Web link */}
@@ -361,7 +352,7 @@ class AddGiftPage extends React.Component {
                     "is-valid": this.state.hasUrlSuccess,
                   })}
                   type="url"
-                  placeholder="https://getbootstrap.com"
+                  defaultValue={this.props.editableGift.url}
                   id="url-input"
                 />
               </div>
@@ -381,7 +372,7 @@ class AddGiftPage extends React.Component {
                     "is-valid": this.state.hasDescSuccess,
                   })}
                   rows="3"
-                  placeholder="Enter text here..."
+                  defaultValue={this.props.editableGift.description}
                   onChange={(e) => this.setDescText(e)}
                   id="desc-input"
                 ></textarea>
@@ -406,7 +397,12 @@ class AddGiftPage extends React.Component {
                 </label>
                 {/* place in own forms */}
 
-                <ToggleButtonGroup className="col" type="radio" name="options">
+                <ToggleButtonGroup
+                  className="col"
+                  type="radio"
+                  name="options"
+                  // defaultValue={this.props.editableGift.gender}
+                >
                   <ToggleButton
                     className={classnames({
                       "button-outline": true,
@@ -493,6 +489,7 @@ class AddGiftPage extends React.Component {
                   })}
                   id="interest-input"
                   checked={this.state.setInterestSelected === "interest-input"}
+                  defaultValue={this.props.editableGift.interest}
                   onChange={(e) => this.setInterestValue(e)}
                 >
                   <option value="0">Nothing Selected</option>
@@ -528,6 +525,7 @@ class AddGiftPage extends React.Component {
                     "is-valid": this.state.hasAgeSuccess,
                   })}
                   id="age-input"
+                  defaultValue={this.props.editableGift.age}
                   checked={this.state.setAgeSelected === "age-input"}
                   onChange={(e) => this.setAgeValue(e)}
                 >
@@ -571,8 +569,10 @@ class AddGiftPage extends React.Component {
                     "is-invalid": this.state.hasPriceError,
                     "is-valid": this.state.hasPriceSuccess,
                   })}
-                  placeholder="0.00"
                   id="price-input"
+                  defaultValue={(this.props.editableGift.price / 100).toFixed(
+                    2
+                  )}
                   onChange={(e) => this.setPriceNumber(e)}
                 />
               </div>
@@ -598,7 +598,9 @@ class AddGiftPage extends React.Component {
     );
   }
 }
-function mapStateToProps() {
-  return {};
+function mapStateToProps(state) {
+  return {
+    editableGift: state.editableGift,
+  };
 }
 export default withRouter(connect(mapStateToProps)(AddGiftPage));

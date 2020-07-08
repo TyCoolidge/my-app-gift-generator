@@ -4,7 +4,9 @@ import classnames from "classnames";
 import hash from "object-hash";
 import { v4 as getUuid } from "uuid";
 import { withRouter } from "react-router-dom";
-
+import { connect } from "react-redux";
+import axios from "axios";
+import actions from "../../store/actions";
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -174,10 +176,24 @@ class SignUp extends React.Component {
       const createUser = {
         id: getUuid(),
         email: signUpEmailInput,
+        username: userNameInput,
         password: hash(createPasswordInput),
         createdAt: Date.now(),
       };
-      console.log(createUser);
+      console.log("created user object", createUser);
+      axios
+        .get("https://run.mocky.io/v3/624bafeb-1593-4c68-9f9b-5952d2111755")
+        .then((res) => {
+          const currentUser = res.data;
+          console.log(currentUser);
+          this.props.dispatch({
+            type: actions.UPDATE_CURRENT_USER,
+            payload: res.data,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       this.props.history.push("/add-gift-page");
     }
   }
@@ -317,4 +333,7 @@ class SignUp extends React.Component {
   }
 }
 
-export default withRouter(SignUp);
+function mapStateToProps(state) {
+  return {};
+}
+export default withRouter(connect(mapStateToProps)(SignUp));

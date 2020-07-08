@@ -3,10 +3,8 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import combineReducers from "./combineReducers";
 
 const initialState = {
-  currentUser: [],
-  currentGift: [],
-  newCreatedGift: [],
-  allStoredGifts: [],
+  currentUser: {},
+  editableGift: {},
 };
 
 const store = createStore(combineReducers, initialState, composeWithDevTools());

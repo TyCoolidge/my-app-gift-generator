@@ -2,47 +2,42 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Header from "../ui/Header";
 import IndividualGift from "../ui/IndividualGift";
-import gifts from "../../mock-data/gifts";
-// import orderBy from "lodash/orderBy";
-import filter from "lodash/filter";
-import _ from "lodash";
 import axios from "axios";
 import { connect } from "react-redux";
 import actions from "../../store/actions";
+import gifts from "../../mock-data/gifts";
 
 class HomePage extends React.Component {
-  constructor(props) {
-    super(props);
-    axios
-      .get("https://run.mocky.io/v3/e3a916f2-e011-4d6a-8260-2d0a4d1cbf85")
-      .then(function (res) {
-        console.log(res);
-        props.dispatch({
-          type: actions.STORE_ALL_GIFTS,
-          payload: res.data,
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    /* user: []
-       currentGift: []
-       (when clicking edit page)
-
-      TODO for redux
-       add redux to keep user logged in and only display the gifts they created, when clicking on edit button on account page, use redux to fillin the inputs on create gift.
-       if user is not logged in, account link redirects to login page. Save gift information to global state to populate to main page
-       */
+  constructor() {
+    super();
 
     this.state = {
-      displayedGifts: gifts,
-      allGifts: gifts,
+      displayedGifts: [],
+      allGifts: [],
       gender: 0,
       age: 0,
       interest: 0,
       price: 0,
+      isLogInAvaliable: true,
+      isLogOutAvaliable: false,
+      /*set current state of logIn button to true and logOut button to false
+      write function if user is not logged in swap the two states*/
     };
+  }
+  componentDidMount() {
+    axios
+      .get("https://run.mocky.io/v3/6dcec84b-c3ad-4723-b8b3-810b32f513b8")
+      .then((res) => {
+        console.log(res.data);
+        const gifts = res.data;
+        this.setState({
+          displayedGifts: gifts,
+          allGifts: gifts,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   setGender(e) {
@@ -67,6 +62,7 @@ class HomePage extends React.Component {
   }
   setDisplayedGifts() {
     const gifts = [...this.state.allGifts];
+    //price range end
     if (this.state.gender !== 0) {
       //if gender is selected
       const filteredGifts = gifts.filter((gift) => {
@@ -94,18 +90,17 @@ class HomePage extends React.Component {
         return gift.price === this.state.price;
       });
       this.setState({ displayedGifts: filteredGifts });
-    }
-    //price ranges start
+    } //price ranges start
     if (this.state.price === 1) {
       //if price is selected
       const filteredGifts = gifts.filter((gift) => {
-        return gift.price <= 2500;
+        return gift.price < 2500;
       });
       this.setState({ displayedGifts: filteredGifts });
     } else if (this.state.price === 2) {
       //if price is selected
       const filteredGifts = gifts.filter((gift) => {
-        return gift.price > 2500 && gift.price <= 5000;
+        return gift.price >= 2500 && gift.price <= 5000;
       });
       this.setState({ displayedGifts: filteredGifts });
     } else if (this.state.price === 3) {
@@ -133,7 +128,6 @@ class HomePage extends React.Component {
       });
       this.setState({ displayedGifts: filteredGifts });
     }
-    //price range end
 
     if (
       this.state.gender === 0 &&
@@ -145,6 +139,44 @@ class HomePage extends React.Component {
     }
   }
 
+  isUserLoggedIn() {
+    // https://stackoverflow.com/a/32108184
+    if (
+      Object.keys(this.props.currentUser).length === 0 &&
+      this.props.currentUser.constructor === Object
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  checkIfUserLoggedInForMyAccount() {
+    if (
+      Object.keys(this.props.currentUser).length === 0 &&
+      this.props.currentUser.constructor === Object
+    ) {
+      return this.props.history.push("/login-page");
+    } else {
+      return this.props.history.push("/account-page");
+    }
+  }
+  checkIfUserLoggedInForShareGiftIdea() {
+    if (
+      Object.keys(this.props.currentUser).length === 0 &&
+      this.props.currentUser.constructor === Object
+    ) {
+      return this.props.history.push("/login-page");
+    } else {
+      return this.props.history.push("/add-gift-page");
+    }
+  }
+  logOutCurrentUser() {
+    this.props.dispatch({
+      type: actions.UPDATE_CURRENT_USER,
+      payload: {},
+    });
+  }
+
   render() {
     return (
       // <!-- Example single danger button -->
@@ -152,13 +184,31 @@ class HomePage extends React.Component {
         <div className="row mt-5">
           <div className="col">
             {/* change state, if not logged in direct those to login page */}
-            <Link to="/account-page" className="">
+            <Link
+              to="#"
+              className=""
+              onClick={() => {
+                this.checkIfUserLoggedInForMyAccount();
+              }}
+            >
               My Account
             </Link>
-            {/* change state, if user is logged in, change to log out, if user clicks this login link then redirect to this page */}
-            <Link to="/login-page" className="float-right">
-              Log In
-            </Link>
+            {!this.isUserLoggedIn() && (
+              <Link to="/login-page" className="float-right">
+                Log In
+              </Link>
+            )}
+            {this.isUserLoggedIn() && (
+              <Link
+                to="/login-page"
+                className="float-right"
+                onClick={() => {
+                  this.logOutCurrentUser();
+                }}
+              >
+                Log Out
+              </Link>
+            )}
           </div>
         </div>
         <div className="row mt-1">
@@ -264,22 +314,21 @@ class HomePage extends React.Component {
           </div>
 
           <div className="col-6">
-            <Link to="/login-page" className="float-right btn btn-primary">
+            <Link
+              to="#"
+              className="float-right btn btn-primary"
+              onClick={() => {
+                this.checkIfUserLoggedInForShareGiftIdea();
+              }}
+            >
               Share gift idea
             </Link>
           </div>
         </div>
         <div className="mb-2 ">
           {/* map method use to iterate through gifts array returning the values shown below from our data */}
-          {this.state.displayedGifts.map((gifts) => {
-            return (
-              <IndividualGift
-                title={gifts.title}
-                description={gifts.description}
-                price={(gifts.price / 100).toFixed(2)}
-                key={gifts.id}
-              />
-            );
+          {this.state.displayedGifts.map((gift) => {
+            return <IndividualGift gift={gift} key={gift.id} />;
           })}
         </div>
       </div>
@@ -287,7 +336,9 @@ class HomePage extends React.Component {
   }
 }
 
-function mapStateToProps() {
-  return {};
+function mapStateToProps(state) {
+  return {
+    currentUser: state.currentUser,
+  };
 }
 export default connect(mapStateToProps)(HomePage);
