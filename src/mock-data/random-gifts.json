@@ -9,8 +9,8 @@
     "description": "The best blender of all time",
     "gender": 1,
     "interest": 11,
-    "age": 3, //MVP only allow one filter
-    "price": 34995 //price is in cents 20000 = $200, make conversion
+    "age": 3,
+    "price": 34995
   },
   {
     "id": "8ca3c483-0566-497f-a717-cea008833167",

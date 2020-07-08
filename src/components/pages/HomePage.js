@@ -26,7 +26,9 @@ class HomePage extends React.Component {
   }
   componentDidMount() {
     axios
-      .get("https://run.mocky.io/v3/6dcec84b-c3ad-4723-b8b3-810b32f513b8")
+      .get(
+        "https://raw.githubusercontent.com/TyCoolidge/my-app-gift-generator/master/src/mock-data/random-gifts.json"
+      )
       .then((res) => {
         console.log(res.data);
         const gifts = res.data;

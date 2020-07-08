@@ -9,7 +9,7 @@ export default function IndividualGift(props) {
           {/* TODO add linebreaks */}
           <div className="containsImage fitToImageContainer">
             <div className="">
-              <img alt="item" url={props.gift.img} />
+              <img alt="item" url={props.gift.photo} />
             </div>
           </div>
         </div>
