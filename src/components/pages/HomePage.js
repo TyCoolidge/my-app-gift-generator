@@ -5,7 +5,7 @@ import IndividualGift from "../ui/IndividualGift";
 import axios from "axios";
 import { connect } from "react-redux";
 import actions from "../../store/actions";
-import gifts from "../../mock-data/gifts";
+import { withRouter } from "react-router-dom";
 
 class HomePage extends React.Component {
   constructor() {
@@ -143,6 +143,7 @@ class HomePage extends React.Component {
 
   isUserLoggedIn() {
     // https://stackoverflow.com/a/32108184
+    //checks if state is empty
     if (
       Object.keys(this.props.currentUser).length === 0 &&
       this.props.currentUser.constructor === Object
@@ -163,10 +164,7 @@ class HomePage extends React.Component {
     }
   }
   checkIfUserLoggedInForShareGiftIdea() {
-    if (
-      Object.keys(this.props.currentUser).length === 0 &&
-      this.props.currentUser.constructor === Object
-    ) {
+    if (Object.keys(this.props.currentUser).length === 0) {
       return this.props.history.push("/login-page");
     } else {
       return this.props.history.push("/add-gift-page");
@@ -176,6 +174,17 @@ class HomePage extends React.Component {
     this.props.dispatch({
       type: actions.UPDATE_CURRENT_USER,
       payload: {},
+    });
+  }
+  /*TODO clean up code
+  this is used so when a user clicks on "my account", once they log in
+  they will be redirected back to account page instead of add gift*/
+
+  goBackToAccountPage() {
+    const backToAccountPage = "back to account";
+    this.props.dispatch({
+      type: actions.REDIRECT_TO_ACCOUNT_PAGE,
+      payload: backToAccountPage,
     });
   }
 
@@ -191,12 +200,19 @@ class HomePage extends React.Component {
               className=""
               onClick={() => {
                 this.checkIfUserLoggedInForMyAccount();
+                this.goBackToAccountPage();
               }}
             >
               My Account
             </Link>
             {!this.isUserLoggedIn() && (
-              <Link to="/login-page" className="float-right">
+              <Link
+                to="/login-page"
+                className="float-right"
+                onClick={() => {
+                  this.goBackToAccountPage();
+                }}
+              >
                 Log In
               </Link>
             )}
@@ -341,6 +357,7 @@ class HomePage extends React.Component {
 function mapStateToProps(state) {
   return {
     currentUser: state.currentUser,
+    redirectToAccountPage: state.redirectToAccountPage,
   };
 }
-export default connect(mapStateToProps)(HomePage);
+export default withRouter(connect(mapStateToProps)(HomePage));

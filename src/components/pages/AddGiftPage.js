@@ -11,6 +11,7 @@ import { v4 as getUuid } from "uuid";
 import users from "../../mock-data/users";
 import { connect } from "react-redux";
 import actions from "../../store/actions";
+import Swal from "sweetalert2";
 
 class AddGiftPage extends React.Component {
   constructor(props) {
@@ -24,20 +25,24 @@ class AddGiftPage extends React.Component {
       hasTitleError: false,
       hasTitleSuccess: false,
       //photo
-      photoUrl: "",
+      websiteUrl: "",
       hasPhotoError: false,
       hasPhotoSuccess: false,
-      uploadFile: "Choose file...",
+      photoUrl: "",
       //url
       hasUrlError: false,
       hasUrlSuccess: false,
       //description
       descText: "",
-      hasDescError: false,
+      hasDescriptionError: false,
       hasDescSuccess: false,
       //gender
       isGenderSelected: false,
-      signUpGenderSelect: "",
+      setGender: "",
+      setMaleSelectedToTrue: false,
+      setFemaleSelectedToTrue: false,
+      setNeutralSelectedToTrue: false,
+
       //interest
       setInterestSelected: "",
       hasInterestError: false,
@@ -53,20 +58,55 @@ class AddGiftPage extends React.Component {
       hasPriceSuccess: false,
     };
   }
+
+  //sets the state to the values of any editableGift prop
+  componentDidMount() {
+    if (Object.keys(this.props.editableGift).length !== 0) {
+      //word count will be set to its length
+      this.setState({
+        titleText: this.props.editableGift.title,
+        photoUrl: this.props.editableGift.photo,
+        websiteUrl: this.props.editableGift.url,
+        descText: this.props.editableGift.description,
+        setGender: this.props.editableGift.gender,
+        setInterestSelected: this.props.editableGift.interest,
+        setAgeSelected: this.props.editableGift.age,
+        priceTyped: this.props.editableGift.price,
+      });
+    }
+    if (this.props.editableGift.gender === 1) {
+      this.setState({ setMaleSelectedToTrue: true });
+    }
+  }
+  removeActiveStateFromBtn() {
+    this.setState({
+      setMaleSelectedToTrue: false,
+      setFemaleSelectedToTrue: false,
+      setNeutralSelectedTrue: false,
+    });
+  }
+
   setTitleText(e) {
-    this.setState({ titleText: e.target.value });
+    this.setState({
+      titleText: e.target.value,
+      // titleText: this.props.editableGift.title,
+    });
   }
   setDescText(e) {
     this.setState({ descText: e.target.value });
   }
   setPhotoText(e) {
-    this.setState({ uploadFile: e.target.value });
+    this.setState({ photoUrl: e.target.value });
+    console.log("photo", this.state.photoUrl);
   }
   setPriceNumber(e) {
     this.setState({ priceTyped: e.target.value });
   }
   setGenderValue(e) {
-    this.setState({ signUpGenderSelect: e.target.value });
+    this.setState({
+      setGender: e.target.value,
+    });
+    console.log(e.target.value);
   }
   setInterestValue(e) {
     this.setState({ setInterestSelected: e.target.value });
@@ -90,14 +130,51 @@ class AddGiftPage extends React.Component {
     }
   }
 
-  async checkForPhotoError(photoInput) {
-    // var photoData = photoInput.toString();
-    if (photoInput === "") {
+  async checkForPhotoError(photoUrl) {
+    // var photoData = photoUrl.toString();
+    //TODO
+    if (this.state.photoUrl === "") {
       this.setState({
         hasPhotoError: true,
       });
     } else {
-      this.setState({ hasPhotoError: false, hasPhotoSuccess: true });
+      this.setState({
+        hasPhotoSuccess: true,
+        hasPhotoError: false,
+      });
+    }
+    console.log(photoUrl);
+  }
+  async isPhotoUploaded() {
+    //https://sweetalert2.github.io/
+    const { value: file } = await Swal.fire({
+      title: "Select image",
+      input: "file",
+      inputAttributes: {
+        accept: "image/*",
+        "aria-label": "Upload your profile picture",
+      },
+    });
+    console.log({ value: file.name });
+    const fileName = { value: file.name };
+    // https://www.javascripttutorial.net/object/convert-an-object-to-an-array-in-javascript/\
+    // TODO Edit gift photo should have photo value
+    // TODO fix bug that triggers if image not selected
+    // May have to revert back to previous input to grab string
+    this.setState({ photoUrl: Object.values(fileName).toString() });
+    //photoUrl will show file's name
+    console.log(this.state.photoUrl);
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        Swal.fire({
+          title: "Your uploaded picture",
+          imageUrl: e.target.result,
+          imageAlt: "The uploaded picture",
+        });
+        // this.setState({ photoUrl: photo });
+      };
+      reader.readAsDataURL(file);
     }
   }
 
@@ -114,23 +191,23 @@ class AddGiftPage extends React.Component {
     }
   }
 
-  async checkForDescError(descInput) {
-    if (descInput === "") {
+  async checkForDescriptionError(descriptionInput) {
+    if (descriptionInput === "") {
       this.setState({
-        hasDescError: true,
+        hasDescriptionError: true,
       });
     } else if (checkIsOver(this.state.descText, 200) === true) {
-      this.setState({ hasDescError: true });
+      this.setState({ hasDescriptionError: true });
     } else {
       this.setState({
-        hasDescError: false,
+        hasDescriptionError: false,
         hasDescSuccess: true,
       });
     }
   }
 
-  async checkIfGenderIsSelected(signUpGenderSelect) {
-    if (signUpGenderSelect === "") {
+  async checkIfGenderIsSelected(setGender) {
+    if (setGender === "") {
       this.setState({ isGenderSelected: true });
     } else {
       this.setState({ isGenderSelected: false });
@@ -176,30 +253,29 @@ class AddGiftPage extends React.Component {
 
   async validateGiftInfo() {
     const titleInput = document.getElementById("title-input").value;
-    const photoInput = document.getElementById("photo-input").value;
+    const photoUrl = document.getElementById("photo-input").value;
     const urlInput = document.getElementById("url-input").value;
-    const descInput = document.getElementById("desc-input").value;
-    const signUpGenderSelect = this.state.signUpGenderSelect;
+    const descriptionInput = document.getElementById("desc-input").value;
+    const setGender = this.state.setGender;
 
     const setInterestSelected = this.state.setInterestSelected;
     const setAgeSelected = this.state.setAgeSelected;
 
-    // const ageInput = document.getElementById("age-input").value;
     const priceInput = document.getElementById("price-input").value;
     await this.checkForTitleError(titleInput);
-    await this.checkForPhotoError(photoInput);
+    await this.checkForPhotoError(photoUrl);
     await this.checkForUrlError(urlInput);
-    await this.checkForDescError(descInput);
-    await this.checkIfGenderIsSelected(signUpGenderSelect);
+    await this.checkForDescriptionError(descriptionInput);
+    await this.checkIfGenderIsSelected(setGender);
     await this.checkForInterestError(setInterestSelected);
     await this.checkForAgeError(setAgeSelected);
     await this.checkForPriceError(priceInput);
     if (
       titleInput === "" ||
-      photoInput === "" ||
+      photoUrl === "" ||
       urlInput === "" ||
-      descInput === "" ||
-      signUpGenderSelect === "" ||
+      descriptionInput === "" ||
+      setGender === "" ||
       setInterestSelected === "" ||
       setAgeSelected === "" ||
       priceInput === ""
@@ -216,7 +292,7 @@ class AddGiftPage extends React.Component {
       this.state.hasTitleError === false &&
       this.state.hasPhotoError === false &&
       this.state.hasUrlError === false &&
-      this.state.hasDescError === false &&
+      this.state.hasDescriptionError === false &&
       this.state.isGenderSelected === false &&
       this.state.hasInterestError === false &&
       this.state.hasAgeError === false &&
@@ -229,28 +305,65 @@ class AddGiftPage extends React.Component {
         createdByUserId: userId,
         // go back and fix, ask Mike how to grab data
         title: titleInput,
-        photo: photoInput,
+        photo: photoUrl,
         url: urlInput,
-        desc: descInput,
-        gender: Number(signUpGenderSelect),
+        desc: descriptionInput,
+        gender: Number(setGender),
         interest: Number(setInterestSelected),
         age: Number(setAgeSelected),
         price: Number(priceInput * 100),
         // price in cents
       };
       console.log(newGift);
+      //if all inputs are filled out, lets remove editableGift from store
+      //TODO when editing gift, update its state instead of making new gift
+      // if editable is not empty lets update it
+      this.props.dispatch({
+        type: actions.STORE_EDITABLE_GIFT,
+        payload: {},
+      });
       this.props.history.push("/");
     }
   }
+
+  returnBackToAccountPage() {
+    if (
+      Object.keys(this.props.editableGift).length === 0 &&
+      this.props.editableGift.constructor === Object
+    ) {
+      return this.props.history.push("/");
+    } else {
+      return this.props.history.push("/account-page");
+    }
+  }
+  removeEditableGift() {
+    this.props.dispatch({
+      type: actions.STORE_EDITABLE_GIFT,
+      payload: {},
+    });
+  }
+
   render() {
     return (
       <div className="container">
         <div className="row mt-5">
           <div className="col">
-            <Link to="/account-page" className="">
+            <Link
+              to="/account-page"
+              className=""
+              onClick={() => {
+                this.removeEditableGift();
+              }}
+            >
               My Account
             </Link>
-            <Link to="/login-page" className="float-right">
+            <Link
+              to="/login-page"
+              className="float-right"
+              onClick={() => {
+                this.removeEditableGift();
+              }}
+            >
               Log Out
             </Link>
           </div>
@@ -260,7 +373,14 @@ class AddGiftPage extends React.Component {
           {/* TODO make cols a component */}
         </div>
         <div className="col-12 col-sm-12 col-md-12 col-lg-8 offset-lg-2 col-xl-10 offset-xl-1 mb-3">
-          <Link to="/" className="">
+          <Link
+            to="#"
+            className=""
+            onClick={() => {
+              this.returnBackToAccountPage();
+              this.removeEditableGift();
+            }}
+          >
             <FontAwesomeIcon
               icon={faLongArrowAltLeft}
               style={{ fontSize: "40px" }}
@@ -315,29 +435,41 @@ class AddGiftPage extends React.Component {
                 <label htmlFor="Photo">Photo:</label>
               </div>
               <div className="col-sm-9 col-md-10">
-                <div className="custom-file">
-                  <input
-                    type="file"
+                <div className="input-group">
+                  <label
+                    id="photo-input"
                     className={classnames({
-                      "custom-file-input": true,
+                      "form-control": true,
                       "is-invalid": this.state.hasPhotoError,
                       "is-valid": this.state.hasPhotoSuccess,
                     })}
-                    // defaultValue={this.props.editableGift.photo}
-                    id="photo-input"
                     onChange={(e) => this.setPhotoText(e)}
-                  />
-                  <label
-                    className="custom-file-label"
-                    id="file-upload-filename"
                   >
-                    {this.state.uploadFile}
+                    {this.state.photoUrl}
                   </label>
+                  <div className="input-group-append">
+                    <button
+                      className={classnames({
+                        btn: true,
+                        "btn-outline-secondary": true,
+                        "form-control": true,
+                        "btn-outline-danger": this.state.hasPhotoError,
+                        "btn-outline-success": this.state.hasPhotoSuccess,
+                      })}
+                      type="button"
+                      defaultValue={this.props.editableGift.photo}
+                      onClick={() => {
+                        this.isPhotoUploaded();
+                      }}
+                    >
+                      Upload
+                    </button>
+                  </div>
                 </div>
               </div>
             </form>
             {/* Web link */}
-            <form className="form-group row mt-4">
+            <form className="form-group row mt-3">
               <label
                 htmlFor="example-url-input"
                 className="col-sm-3 col-md-2 col-form-label"
@@ -368,7 +500,7 @@ class AddGiftPage extends React.Component {
                 <textarea
                   className={classnames({
                     "form-control": true,
-                    "is-invalid": this.state.hasDescError,
+                    "is-invalid": this.state.hasDescriptionError,
                     "is-valid": this.state.hasDescSuccess,
                   })}
                   rows="3"
@@ -408,19 +540,21 @@ class AddGiftPage extends React.Component {
                       "button-outline": true,
                       "danger-button": this.state.isGenderSelected,
                       "col-5": true,
+                      active: this.state.setMaleSelectedToTrue,
                       btn: true,
                       // "btn-outline-primary": true,
                       "mr-2": true,
                       rounded: true,
                     })}
-                    value={"1"}
+                    value={1}
                     type="radio"
                     name="options"
                     id="option1"
-                    checked={this.state.signUpGenderSelect === "option1"}
+                    checked={this.state.setGender === "option1"}
                     onChange={(e) => this.setGenderValue(e)}
                     onClick={() => {
                       this.checkIfGenderIsSelected();
+                      this.removeActiveStateFromBtn();
                     }}
                   >
                     Male
@@ -431,18 +565,21 @@ class AddGiftPage extends React.Component {
                       "danger-button": this.state.isGenderSelected,
                       "col-4": true,
                       btn: true,
+                      active: this.state.setFemaleSelectedToTrue,
+
                       // "btn-outline-primary": true,
                       "mr-2": true,
                       rounded: true,
                     })}
-                    value={"2"}
+                    value={2}
                     type="radio"
                     name="options"
                     id="option2"
-                    checked={this.state.signUpGenderSelect === "option2"}
+                    checked={this.state.setGender === "option2"}
                     onChange={(e) => this.setGenderValue(e)}
                     onClick={() => {
                       this.checkIfGenderIsSelected();
+                      this.removeActiveStateFromBtn();
                     }}
                   >
                     Female
@@ -453,17 +590,20 @@ class AddGiftPage extends React.Component {
                       "danger-button": this.state.isGenderSelected,
                       "col-4": true,
                       btn: true,
+                      active: this.state.setNeutralSelectedToTrue,
+
                       // "btn-outline-primary": true,
                       rounded: true,
                     })}
-                    value={"3"}
+                    value={3}
                     type="radio"
                     name="options"
                     id="option3"
-                    checked={this.state.signUpGenderSelect === "option3"}
+                    checked={this.state.setGender === "option3"}
                     onChange={(e) => this.setGenderValue(e)}
                     onClick={() => {
                       this.checkIfGenderIsSelected();
+                      this.removeActiveStateFromBtn();
                     }}
                   >
                     Neutral
@@ -569,6 +709,7 @@ class AddGiftPage extends React.Component {
                     "is-invalid": this.state.hasPriceError,
                     "is-valid": this.state.hasPriceSuccess,
                   })}
+                  placeholder="0.00"
                   id="price-input"
                   defaultValue={(this.props.editableGift.price / 100).toFixed(
                     2

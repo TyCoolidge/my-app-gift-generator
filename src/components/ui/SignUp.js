@@ -194,7 +194,7 @@ class SignUp extends React.Component {
         .catch((error) => {
           console.log(error);
         });
-      this.props.history.push("/add-gift-page");
+      this.props.history.push("/account-page");
     }
   }
 

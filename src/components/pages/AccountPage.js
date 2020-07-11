@@ -8,7 +8,6 @@ saving edited gift reflects on userpage and homepage
 import React from "react";
 import { Link } from "react-router-dom";
 import UserGift from "../ui/UserGift";
-import users from "../../mock-data/users";
 import gifts from "../../mock-data/gifts";
 import toDisplayDate from "date-fns/format";
 import Header from "../ui/Header";
@@ -21,10 +20,24 @@ class AccountPage extends React.Component {
     super(props);
 
     this.state = {
-      currentUserName: users[0], //need to change to current user, can do with redux
       filteredUserGifts: gifts,
+      userSinceDate: [],
     };
-    console.log(this.state.currentUserName.id, this.state.filteredUserGifts);
+  }
+  componentDidMount() {
+    axios
+      .get("https://run.mocky.io/v3/624bafeb-1593-4c68-9f9b-5952d2111755")
+      .then((res) => {
+        const currentUser = res.data[0];
+        console.log(currentUser);
+        //TODO make render faster && make current user
+        this.setState({
+          userSinceDate: toDisplayDate(currentUser.createdAt, "MMM. d, y"),
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   logOutCurrentUser() {
@@ -62,17 +75,15 @@ class AccountPage extends React.Component {
               Welcome Back: &nbsp;
               <div className="text-muted d-inline">
                 {/* d-inline keeps text together inline  */}
-                {this.state.currentUserName.userName}
+                {this.props.currentUser.userName}
               </div>
             </h2>
             {/* <h2 className="text-muted"></h2> */}
           </div>
         </div>
         <h2 className="mb-5">
-          Member since:{" "}
-          <div className="text-muted d-inline">
-            {toDisplayDate(this.state.currentUserName.createdAt, "MMM. d, y")}
-          </div>
+          Member since: &nbsp;
+          <div className="text-muted d-inline">{this.state.userSinceDate}</div>
         </h2>
         <div className="row mb-5">
           <div className="col">
@@ -92,7 +103,7 @@ class AccountPage extends React.Component {
         {gifts
           .filter((gift) => {
             //filter comes first "higher order"
-            return gift.createdByUserId === this.state.currentUserName.id;
+            return gift.createdByUserId === this.props.currentUser.id;
           })
           .map((gift) => {
             return <UserGift gift={gift} key={gift.id} />;

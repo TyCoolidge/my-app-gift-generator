@@ -93,7 +93,16 @@ class LogIn extends React.Component {
         .catch((error) => {
           console.log(error);
         });
-      this.props.history.push("/add-gift-page");
+      if (this.props.redirectToAccountPage === "back to account") {
+        this.props.dispatch({
+          type: actions.REDIRECT_TO_ACCOUNT_PAGE,
+          payload: {},
+        });
+        this.props.history.push("/account-page");
+      } else {
+        // make it where clicking on myAccout makes empty state for currentUser, if has that empty state then redirect
+        this.props.history.push("/add-gift-page");
+      }
     }
   }
 
@@ -170,6 +179,9 @@ class LogIn extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    editableGift: state.editableGift,
+    redirectToAccountPage: state.redirectToAccountPage,
+  };
 }
 export default withRouter(connect(mapStateToProps)(LogIn));

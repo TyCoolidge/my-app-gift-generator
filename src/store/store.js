@@ -5,6 +5,7 @@ import combineReducers from "./combineReducers";
 const initialState = {
   currentUser: {},
   editableGift: {},
+  redirectToAccountPage: {},
 };
 
 const store = createStore(combineReducers, initialState, composeWithDevTools());
