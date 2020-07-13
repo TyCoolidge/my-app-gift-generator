@@ -9,48 +9,46 @@
     "description": "The best blender of all time",
     "gender": 3,
     "interest": 11,
-    "age": [3, 4],
+    "age": 3,
     "price": 34995
   },
   {
     "id": "8ca3c483-0566-497f-a717-cea008833167",
     "createdAt": 1592855191796,
     "createdByUserId": "bobfe071-b5f6-4e70-8df7-2583fd274345",
-    "title": "USB Charger Station",
-    "photo": "vitamix.jpeg",
-    "url": "https://www.amazon.com/Vitamix-E310-Explorian-Professional-Grade-Container/dp/B0758JHZM3/ref=sr_1_2?dchild=1&keywords=vitamix&qid=1594237685&sr=8-2",
-    "description": "Description Text2",
+    "title": "USB Charger RAVPower",
+    "photo": "USB-charger.jpeg",
+    "url": "https://www.amazon.com/Charger-RAVPower-Charging-Multiple-Compatible/dp/B00OQ19QYA?ref_=fsclp_pl_dp_1",
+    "description": "Euipped with up to 6-Ports, RAVPower USB Charging Station supports charging multiple devices at same time.",
     "gender": 3,
     "interest": 3,
-    "age": 4,
-    "price": 2500
+    "age": 3,
+    "price": 2599
   },
   {
     "id": "94857791-a2c2-4be8-8abb-471ef1d11fa9",
     "createdAt": 1592855191798,
     "createdByUserId": "ddd4cfc1-7606-4fda-9081-ab2942865999",
     "title": "Color Pencil Set",
-    "photo": "vitamix.jpeg",
-    "url": "https://www.amazon.com/Vitamix-E310-Explorian-Professional-Grade-Container/dp/B0758JHZM3/ref=sr_1_2?dchild=1&keywords=vitamix&qid=1594237685&sr=8-2",
-
-    "description": "Description Text3",
+    "photo": "color-pencil-set.jpeg",
+    "url": "https://www.amazon.com/Crayola-Colored-Pre-sharpened-Coloring-Stocking/dp/B07MM2T4S8/ref=sr_1_1_sspa?dchild=1&keywords=colored%2Bpencils&qid=1594670237&sr=8-1-spons&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEyMlI5NTUwVDlTQk4yJmVuY3J5cHRlZElkPUEwNjg5MDExMUFGSjdMQTVMS0czTSZlbmNyeXB0ZWRBZElkPUEwNjQ5OTQ1MktFSEswVEswS1o5UiZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU&th=1",
+    "description": "This set features 50 rich, vibrant colors that highlight the details of every coloring book and art project",
     "gender": 3,
     "interest": 1,
-    "age": 8,
-    "price": 1699
+    "age": 1,
+    "price": 1917
   },
   {
     "id": "e6f2f724-43b4-425b-a4d3-faedb5ec5efc",
     "createdAt": 1592855191798,
     "createdByUserId": "ddd4cfc1-7606-4fda-9081-ab2942865999",
-    "title": "Hydroflask",
-    "photo": "vitamix.jpeg",
-    "url": "https://www.amazon.com/Vitamix-E310-Explorian-Professional-Grade-Container/dp/B0758JHZM3/ref=sr_1_2?dchild=1&keywords=vitamix&qid=1594237685&sr=8-2",
-
-    "description": "Description Text4",
+    "title": "Hydro Flask Wide Mouth 2.0 Water Bottle 32oz",
+    "photo": "HydroFlask.jpeg",
+    "url": "https://www.amazon.com/Hydro-Flask-Mouth-Water-Bottle/dp/B083ZHGXTF/ref=sr_1_1_sspa?dchild=1&keywords=hydroflask&qid=1594670401&sr=8-1-spons&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExTjIyMUZCWUNaUTQ0JmVuY3J5cHRlZElkPUEwNTIxNTIxUVJUSzhRTU5CTkVSJmVuY3J5cHRlZEFkSWQ9QTA2MjM4ODAzTUZBMEJFOVcxNlpCJndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ&th=1&psc=1",
+    "description": "Keeps cold drinks icy cold and hot drinks piping hot for hydration any time, anywhere",
     "gender": 3,
     "interest": 6,
     "age": 8,
-    "price": 5000
+    "price": 4995
   }
 ]
