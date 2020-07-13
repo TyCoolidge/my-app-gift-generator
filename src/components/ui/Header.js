@@ -21,7 +21,8 @@ class Header extends React.Component {
               this.removeEditableGift();
             }}
           >
-            Gift Generator
+            {/* TODO add logo */}
+            Gift Finder
           </h2>
         </Link>
       </div>
