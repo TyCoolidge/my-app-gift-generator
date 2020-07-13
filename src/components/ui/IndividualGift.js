@@ -20,7 +20,12 @@ export default function IndividualGift(props) {
             <br />
           </div>
           <div className="mb-2">
-            Description: {props.gift.description}
+            {/* if too long truncate */}
+            Description:
+            <div className="d-inline" style={{ fontSize: "16px" }}>
+              {" "}
+              {props.gift.description}
+            </div>
             <br />
           </div>
           <div className="mb-2">
