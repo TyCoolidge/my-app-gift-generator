@@ -198,21 +198,20 @@ class HomePage extends React.Component {
             {/* move up to log in view */}
             <Link
               to="#"
-              className="mr-3 "
+              className="mr-4 "
               onClick={() => {
                 this.checkIfUserLoggedInForShareGiftIdea();
               }}
             >
-              <div className="d-inline" style={{ fontSize: "20px" }}>
+              <FontAwesomeIcon icon={faGift} style={{ fontSize: "40px" }} />
+              <div className="ml-1 d-inline" style={{ fontSize: "20px" }}>
                 Share Gift
               </div>
-              <FontAwesomeIcon icon={faGift} style={{ fontSize: "40px" }} />
             </Link>
 
             {!this.isUserLoggedIn() && (
               <Link
                 to="/login-page"
-                className=""
                 onClick={() => {
                   this.goBackToAccountPage();
                 }}
@@ -220,8 +219,10 @@ class HomePage extends React.Component {
                 <FontAwesomeIcon
                   icon={faSignInAlt}
                   style={{ fontSize: "40px" }}
-                  className="float-right"
                 />
+                <div className="ml-2 d-inline" style={{ fontSize: "20px" }}>
+                  Log In
+                </div>
               </Link>
             )}
             {this.isUserLoggedIn() && (
@@ -237,6 +238,9 @@ class HomePage extends React.Component {
                   style={{ fontSize: "40px" }}
                   className=""
                 />
+                <div className="ml-2 d-inline" style={{ fontSize: "20px" }}>
+                  Log Out
+                </div>
               </Link>
             )}
           </div>

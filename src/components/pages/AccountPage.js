@@ -8,7 +8,6 @@ saving edited gift reflects on userpage and homepage
 import React from "react";
 import { Link } from "react-router-dom";
 import UserGift from "../ui/UserGift";
-import gifts from "../../mock-data/gifts";
 import toDisplayDate from "date-fns/format";
 import Header from "../ui/Header";
 import { connect } from "react-redux";
@@ -83,6 +82,9 @@ class AccountPage extends React.Component {
                 style={{ fontSize: "40px" }}
                 className=""
               />
+              <div className="ml-1 d-inline" style={{ fontSize: "20px" }}>
+                Log Out
+              </div>
             </Link>
           </div>
         </div>
@@ -111,7 +113,7 @@ class AccountPage extends React.Component {
         <div className="row mb-5">
           <div className="col">
             <h2 className="" style={{ fontSize: "20px" }}>
-              Your created gifts
+              Your created gifts:
             </h2>
           </div>
           <div className="col">

@@ -363,12 +363,14 @@ class AddGiftPage extends React.Component {
                     this.removeEditableGift();
                   }}
                 >
-                  {this.props.currentUser.userName}
                   <FontAwesomeIcon
                     icon={faUserCircle}
                     style={{ fontSize: "40px" }}
                     className=""
                   />
+                  <div className="ml-1 d-inline" style={{ fontSize: "20px" }}>
+                    {this.props.currentUser.userName}
+                  </div>
                 </Link>
               </div>
             </div>
@@ -419,37 +421,17 @@ class AddGiftPage extends React.Component {
                 <label htmlFor="Photo">Photo:</label>
               </div>
               <div className="col-sm-9 col-md-10">
-                <div className="input-group">
-                  <label
-                    id="photo-input"
-                    className={classnames({
-                      "form-control": true,
-                      "is-invalid": this.state.hasPhotoError,
-                      "is-valid": this.state.hasPhotoSuccess,
-                    })}
-                    onChange={(e) => this.setPhotoText(e)}
-                  >
-                    {this.state.photoUrl}
-                  </label>
-                  <div className="input-group-append">
-                    <button
-                      className={classnames({
-                        btn: true,
-                        "btn-outline-secondary": true,
-                        "form-control": true,
-                        "btn-outline-danger": this.state.hasPhotoError,
-                        "btn-outline-success": this.state.hasPhotoSuccess,
-                      })}
-                      type="button"
-                      defaultValue={this.props.editableGift.photo}
-                      onClick={() => {
-                        this.isPhotoUploaded();
-                      }}
-                    >
-                      Upload
-                    </button>
-                  </div>
-                </div>
+                <input
+                  id="photo-input"
+                  className={classnames({
+                    "form-control": true,
+                    "is-invalid": this.state.hasPhotoError,
+                    "is-valid": this.state.hasPhotoSuccess,
+                  })}
+                  placeholder="Insert Photo Url..."
+                  defaultValue={this.props.editableGift.photo}
+                  onChange={(e) => this.setPhotoText(e)}
+                />
               </div>
             </form>
             {/* Web link */}

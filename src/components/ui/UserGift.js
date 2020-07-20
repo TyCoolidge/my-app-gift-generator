@@ -48,7 +48,7 @@ class UserGift extends React.Component {
               <a href={this.props.gift.url}>More info</a>
               <br />
             </div>
-            <div className="mb-2" style={{ fontSize: "16px" }}>
+            <div className="mt-2 mb-2" style={{ fontSize: "16px" }}>
               Price: ${(this.props.gift.price / 100).toFixed(2)}
             </div>
           </div>
