@@ -14,6 +14,8 @@ import Header from "../ui/Header";
 import { connect } from "react-redux";
 import actions from "../../store/actions";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 class AccountPage extends React.Component {
   constructor(props) {
@@ -62,7 +64,11 @@ class AccountPage extends React.Component {
                 this.logOutCurrentUser();
               }}
             >
-              Log Out
+              <FontAwesomeIcon
+                icon={faSignOutAlt}
+                style={{ fontSize: "40px" }}
+                className=""
+              />
             </Link>
           </div>
         </div>
@@ -74,7 +80,7 @@ class AccountPage extends React.Component {
         </div>
         <div className="row mt-4">
           <div className="col-12">
-            <h2 className="">
+            <h2 className="" style={{ fontSize: "20px" }}>
               Welcome Back: &nbsp;
               <div className="text-muted d-inline">
                 {/* d-inline keeps text together inline  */}
@@ -84,13 +90,15 @@ class AccountPage extends React.Component {
             {/* <h2 className="text-muted"></h2> */}
           </div>
         </div>
-        <h2 className="mb-5">
+        <h2 className="mb-3" style={{ fontSize: "20px" }}>
           Member since: &nbsp;
           <div className="text-muted d-inline">{this.state.userSinceDate}</div>
         </h2>
         <div className="row mb-5">
           <div className="col">
-            <h2 className="">Your created gifts</h2>
+            <h2 className="" style={{ fontSize: "20px" }}>
+              Your created gifts
+            </h2>
           </div>
           <div className="col">
             <div className="float-right">

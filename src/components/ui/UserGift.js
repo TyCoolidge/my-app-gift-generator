@@ -27,25 +27,29 @@ class UserGift extends React.Component {
         <div className="mb-3 row">
           <div className="col-4 col-sm-4 col-md-3">
             {/* TODO add linebreaks */}
-            <div className="containsImage fitToImageContainer">
-              <div className="">
-                <img alt="item" url={this.props.gift.url} />
-              </div>
+            <div>
+              <a href={this.props.gift.url}>
+                <img
+                  alt="item"
+                  className="containsImage fitToImageContainer"
+                  src={this.props.gift.photo}
+                />
+              </a>
             </div>
           </div>
           {/* fix format of text below */}
-          <div className="col-6 mt-2 giftInfoSize">
-            <div className="mb-2">
-              <strong>Name:</strong> {this.props.gift.title}
+          <div className="col mt-2 giftInfoSize">
+            <div className="mb-2" style={{ fontSize: "18px" }}>
+              <b>{this.props.gift.title}</b>
               <br />
             </div>
-            <div className="mb-2">
-              <strong>Description:</strong> {this.props.gift.description}
+            <div className="mb-2 d-inline" style={{ fontSize: "16px" }}>
+              {this.props.gift.description}{" "}
+              <a href={this.props.gift.url}>More info</a>
               <br />
             </div>
-            <div className="mb-2">
-              <strong>Price: </strong>$
-              {(this.props.gift.price / 100).toFixed(2)}
+            <div className="mb-2" style={{ fontSize: "16px" }}>
+              Price: ${(this.props.gift.price / 100).toFixed(2)}
             </div>
           </div>
           <div className="col float-right">

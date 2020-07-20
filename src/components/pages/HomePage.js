@@ -6,6 +6,12 @@ import axios from "axios";
 import { connect } from "react-redux";
 import actions from "../../store/actions";
 import { withRouter } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faSignInAlt,
+  faSignOutAlt,
+  faGift,
+} from "@fortawesome/free-solid-svg-icons";
 
 class HomePage extends React.Component {
   constructor() {
@@ -153,16 +159,7 @@ class HomePage extends React.Component {
       return true;
     }
   }
-  checkIfUserLoggedInForMyAccount() {
-    if (
-      Object.keys(this.props.currentUser).length === 0 &&
-      this.props.currentUser.constructor === Object
-    ) {
-      return this.props.history.push("/login-page");
-    } else {
-      return this.props.history.push("/account-page");
-    }
-  }
+
   checkIfUserLoggedInForShareGiftIdea() {
     if (Object.keys(this.props.currentUser).length === 0) {
       return this.props.history.push("/login-page");
@@ -198,6 +195,19 @@ class HomePage extends React.Component {
           </div>
           <div className="col text-right mt-4">
             {/* change state, if not logged in direct those to login page */}
+            {/* move up to log in view */}
+            <Link
+              to="#"
+              className="mr-3 "
+              onClick={() => {
+                this.checkIfUserLoggedInForShareGiftIdea();
+              }}
+            >
+              <div className="d-inline" style={{ fontSize: "20px" }}>
+                Share Gift
+              </div>
+              <FontAwesomeIcon icon={faGift} style={{ fontSize: "40px" }} />
+            </Link>
 
             {!this.isUserLoggedIn() && (
               <Link
@@ -207,18 +217,26 @@ class HomePage extends React.Component {
                   this.goBackToAccountPage();
                 }}
               >
-                Log In
+                <FontAwesomeIcon
+                  icon={faSignInAlt}
+                  style={{ fontSize: "40px" }}
+                  className="float-right"
+                />
               </Link>
             )}
             {this.isUserLoggedIn() && (
               <Link
                 to="/login-page"
-                className=""
+                className="float-right"
                 onClick={() => {
                   this.logOutCurrentUser();
                 }}
               >
-                Log Out
+                <FontAwesomeIcon
+                  icon={faSignOutAlt}
+                  style={{ fontSize: "40px" }}
+                  className=""
+                />
               </Link>
             )}
           </div>
@@ -317,23 +335,7 @@ class HomePage extends React.Component {
           </div>
         </div>
         {/* Todo add style */}
-        <div className="row my-4">
-          <div className="col-6"></div>
-
-          <div className="col-6">
-            {/* move up to log in view */}
-            <Link
-              to="#"
-              className="float-right btn btn-primary"
-              onClick={() => {
-                this.checkIfUserLoggedInForShareGiftIdea();
-              }}
-            >
-              Share gift idea
-            </Link>
-          </div>
-        </div>
-        <div className="mb-2 ">
+        <div className="mb-2 mt-5 ">
           {/* map method use to iterate through gifts array returning the values shown below from our data */}
           {this.state.displayedGifts.map((gift) => {
             return <IndividualGift gift={gift} key={gift.id} />;

@@ -10,6 +10,8 @@ import users from "../../mock-data/users";
 import { connect } from "react-redux";
 import actions from "../../store/actions";
 import Swal from "sweetalert2";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
 class AddGiftPage extends React.Component {
   constructor(props) {
@@ -361,7 +363,12 @@ class AddGiftPage extends React.Component {
                     this.removeEditableGift();
                   }}
                 >
-                  My Account
+                  {this.props.currentUser.userName}
+                  <FontAwesomeIcon
+                    icon={faUserCircle}
+                    style={{ fontSize: "40px" }}
+                    className=""
+                  />
                 </Link>
               </div>
             </div>
@@ -719,6 +726,7 @@ class AddGiftPage extends React.Component {
 function mapStateToProps(state) {
   return {
     editableGift: state.editableGift,
+    currentUser: state.currentUser,
   };
 }
 export default withRouter(connect(mapStateToProps)(AddGiftPage));

@@ -23,7 +23,13 @@ class Header extends React.Component {
             }}
           >
             {" "}
-            <img src={logo} alt="Gift Finder logo" width="70" height="70" />
+            <img
+              src={logo}
+              alt="Gift Finder logo"
+              width="70"
+              height="70"
+              className="hoveredLogo"
+            />
             Gift Finder
           </h2>
         </Link>
