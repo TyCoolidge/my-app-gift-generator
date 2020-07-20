@@ -52,7 +52,7 @@ class UserGift extends React.Component {
               Price: ${(this.props.gift.price / 100).toFixed(2)}
             </div>
           </div>
-          <div className="col float-right">
+          <div className="col-1 float-right">
             {/* when user clicks on edit, the addgiftpage should be prefilled with "clicked" gifts data */}
             <Link
               to="/add-gift-page"

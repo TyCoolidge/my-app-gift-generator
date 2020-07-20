@@ -22,7 +22,7 @@ class AccountPage extends React.Component {
     super(props);
 
     this.state = {
-      filteredUserGifts: gifts,
+      userGifts: [],
       userSinceDate: [],
     };
   }
@@ -35,6 +35,20 @@ class AccountPage extends React.Component {
         //TODO make render faster && make current user
         this.setState({
           userSinceDate: toDisplayDate(currentUser.createdAt, "MMM. d, y"),
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    axios
+      .get(
+        "https://raw.githubusercontent.com/TyCoolidge/my-app-gift-generator/master/src/mock-data/random-gifts.json"
+      )
+      .then((res) => {
+        console.log(res.data);
+        const gifts = res.data;
+        this.setState({
+          userGifts: gifts,
         });
       })
       .catch((error) => {
@@ -111,7 +125,7 @@ class AccountPage extends React.Component {
             </div>
           </div>
         </div>
-        {gifts
+        {this.state.userGifts
           .filter((gift) => {
             //filter comes first "higher order"
             return gift.createdByUserId === this.props.currentUser.id;
