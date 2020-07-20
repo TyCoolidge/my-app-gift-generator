@@ -9,7 +9,7 @@ import { v4 as getUuid } from "uuid";
 import users from "../../mock-data/users";
 import { connect } from "react-redux";
 import actions from "../../store/actions";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
@@ -131,9 +131,11 @@ class AddGiftPage extends React.Component {
   }
 
   async checkForPhotoError(photoUrl) {
+    const photoRegex = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+
     // var photoData = photoUrl.toString();
     //TODO
-    if (this.state.photoUrl === "") {
+    if (this.state.photoUrl === "" || photoRegex.test(photoUrl) === false) {
       this.setState({
         hasPhotoError: true,
       });
@@ -145,38 +147,38 @@ class AddGiftPage extends React.Component {
     }
     console.log(photoUrl);
   }
-  async isPhotoUploaded() {
-    //https://sweetalert2.github.io/
-    const { value: file } = await Swal.fire({
-      title: "Select image",
-      input: "file",
-      inputAttributes: {
-        accept: "image/*",
-        "aria-label": "Upload your profile picture",
-      },
-    });
-    console.log({ value: file.name });
-    const fileName = { value: file.name };
-    // https://www.javascripttutorial.net/object/convert-an-object-to-an-array-in-javascript/\
-    // TODO Edit gift photo should have photo value
-    // TODO fix bug that triggers if image not selected
-    // May have to revert back to previous input to grab string
-    this.setState({ photoUrl: Object.values(fileName).toString() });
-    //photoUrl will show file's name
-    console.log(this.state.photoUrl);
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        Swal.fire({
-          title: "Your uploaded picture",
-          imageUrl: e.target.result,
-          imageAlt: "The uploaded picture",
-        });
-        // this.setState({ photoUrl: photo });
-      };
-      reader.readAsDataURL(file);
-    }
-  }
+  // async isPhotoUploaded() {
+  //   //https://sweetalert2.github.io/
+  //   const { value: file } = await Swal.fire({
+  //     title: "Select image",
+  //     input: "file",
+  //     inputAttributes: {
+  //       accept: "image/*",
+  //       "aria-label": "Upload your profile picture",
+  //     },
+  //   });
+  //   console.log({ value: file.name });
+  //   const fileName = { value: file.name };
+  //   // https://www.javascripttutorial.net/object/convert-an-object-to-an-array-in-javascript/\
+  //   // TODO Edit gift photo should have photo value
+  //   // TODO fix bug that triggers if image not selected
+  //   // May have to revert back to previous input to grab string
+  //   this.setState({ photoUrl: Object.values(fileName).toString() });
+  //   //photoUrl will show file's name
+  //   console.log(this.state.photoUrl);
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onload = (e) => {
+  //       Swal.fire({
+  //         title: "Your uploaded picture",
+  //         imageUrl: e.target.result,
+  //         imageAlt: "The uploaded picture",
+  //       });
+  //       // this.setState({ photoUrl: photo });
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // }
 
   async checkForUrlError(urlInput) {
     const urlRegex = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
@@ -431,6 +433,7 @@ class AddGiftPage extends React.Component {
                   placeholder="Insert Photo Url..."
                   defaultValue={this.props.editableGift.photo}
                   onChange={(e) => this.setPhotoText(e)}
+                  type="url"
                 />
               </div>
             </form>
