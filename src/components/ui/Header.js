@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import actions from "../../store/actions";
 import { connect } from "react-redux";
+const logo = require("../icons/gift-logo.png");
 
 class Header extends React.Component {
   //if user clicks on logo it will remove stored state
@@ -13,19 +14,20 @@ class Header extends React.Component {
   }
   render() {
     return (
-      <div className="col-xl-6 offset-xl-3 col-8 offset-2">
+      <>
         <Link to="/">
           <h2
-            className="text-center titleSize"
+            className="titleSize"
             onClick={() => {
               this.removeEditableGift();
             }}
           >
-            {/* TODO add logo */}
+            {" "}
+            <img src={logo} alt="Gift Finder logo" width="70" height="70" />
             Gift Finder
           </h2>
         </Link>
-      </div>
+      </>
     );
   }
 }

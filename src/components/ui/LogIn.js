@@ -109,7 +109,8 @@ class LogIn extends React.Component {
   render() {
     return (
       <div className="col-xl-4 col-lg-4 mx-4 col-md-12">
-        <h2 style={{ color: "red" }} className="card-title">
+        {/* change header blue */}
+        <h2 style={{ color: "" }} className="card-title">
           Log In
         </h2>
         <small className="form-text text-muted mb-3">

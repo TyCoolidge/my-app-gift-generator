@@ -193,22 +193,16 @@ class HomePage extends React.Component {
       // <!-- Example single danger button -->
       <div className="container">
         <div className="row mt-5">
-          <div className="col">
+          <div className="col text-left">
+            <Header />
+          </div>
+          <div className="col text-right mt-4">
             {/* change state, if not logged in direct those to login page */}
-            <Link
-              to="#"
-              className=""
-              onClick={() => {
-                this.checkIfUserLoggedInForMyAccount();
-                this.goBackToAccountPage();
-              }}
-            >
-              My Account
-            </Link>
+
             {!this.isUserLoggedIn() && (
               <Link
                 to="/login-page"
-                className="float-right"
+                className=""
                 onClick={() => {
                   this.goBackToAccountPage();
                 }}
@@ -219,7 +213,7 @@ class HomePage extends React.Component {
             {this.isUserLoggedIn() && (
               <Link
                 to="/login-page"
-                className="float-right"
+                className=""
                 onClick={() => {
                   this.logOutCurrentUser();
                 }}
@@ -228,9 +222,6 @@ class HomePage extends React.Component {
               </Link>
             )}
           </div>
-        </div>
-        <div className="row mt-1">
-          <Header />
         </div>
         {/* Seperate row for titles of each select menu TODO: clean up code  */}
         <div className="row mt-3">
@@ -327,11 +318,10 @@ class HomePage extends React.Component {
         </div>
         {/* Todo add style */}
         <div className="row my-4">
-          <div className="col-6">
-            <h2 className="">Most Popular Gifts</h2>
-          </div>
+          <div className="col-6"></div>
 
           <div className="col-6">
+            {/* move up to log in view */}
             <Link
               to="#"
               className="float-right btn btn-primary"

@@ -1,8 +1,6 @@
 import React from "react";
 import { withRouter, Link } from "react-router-dom";
 import Header from "../ui/Header";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
 import classnames from "classnames";
 import { checkIsOver } from "../utils/helpers";
 import ToggleButton from "react-bootstrap/ToggleButton";
@@ -346,61 +344,40 @@ class AddGiftPage extends React.Component {
   render() {
     return (
       <div className="container">
-        <div className="row mt-5">
-          <div className="col">
-            <Link
-              to="/account-page"
-              className=""
-              onClick={() => {
-                this.removeEditableGift();
-              }}
-            >
-              My Account
-            </Link>
-            <Link
-              to="/login-page"
-              className="float-right"
-              onClick={() => {
-                this.removeEditableGift();
-              }}
-            >
-              Log Out
-            </Link>
-          </div>
-        </div>
-        <div className="row mt-1">
-          <Header />
-          {/* TODO make cols a component */}
-        </div>
-        <div className="col-12 col-sm-12 col-md-12 col-lg-8 offset-lg-2 col-xl-10 offset-xl-1 mb-3">
-          <Link
-            to="#"
-            className=""
-            onClick={() => {
-              this.returnBackToAccountPage();
-              this.removeEditableGift();
-            }}
-          >
-            <FontAwesomeIcon
-              icon={faLongArrowAltLeft}
-              style={{ fontSize: "40px" }}
-              className=""
-            />
-          </Link>
-        </div>
+        <div className="row mt-5"></div>
         {/* Title form */}
-        <div className="col-12 col-sm-12 col-md-12 col-lg-8 offset-lg-2 col-xl-10 offset-xl-1 mt-2 mb-4">
+        <div className="col-12 col-sm-12 col-md-12 col-lg-8 offset-lg-2 col-xl-10 offset-xl-1 mb-4">
           <div className="">
-            <h2 className="card-title" style={{ fontSize: "20px" }}>
-              Add or Edit Gift
-            </h2>
+            <div className="row">
+              <div className="col text-left ">
+                <Header />
+                {/* TODO make cols a component */}
+              </div>
+              <div className="col text-right mt-3">
+                <Link
+                  to="/account-page"
+                  className=""
+                  onClick={() => {
+                    this.removeEditableGift();
+                  }}
+                >
+                  My Account
+                </Link>
+              </div>
+            </div>
+            <div className="text-center">
+              <h2 className="mb-4" style={{ fontSize: "25px" }}>
+                Add or Edit Gift
+              </h2>
+            </div>
+
             {this.state.hasBlankInputs && (
               <big className="form-text text-danger text-center mt-3">
                 All fields need to be filled out
               </big>
             )}
 
-            <div className="form-group row mt-1">
+            <div className=" row mt-1">
               <label
                 htmlFor="inputPassword"
                 className="col-sm-3 col-md-2 col-form-label"
@@ -520,7 +497,7 @@ class AddGiftPage extends React.Component {
             </div>
             {/* Gender either checkbox or buttons */}
             <div id="">
-              <div className=" row mt-3">
+              <div className="row  ">
                 <label
                   htmlFor="inputPassword"
                   className="col-sm-3 col-md-2 col-form-label"

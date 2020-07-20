@@ -201,8 +201,8 @@ class SignUp extends React.Component {
   render() {
     return (
       <div className="mb-5 col-xl col-lg mx-4 col-md-12">
-        <h2 style={{ color: "red" }} className="card-title">
-          Sign Up to Create a Gift
+        <h2 style={{ color: "" }} className="card-title">
+          Sign Up to Create a Gift Idea
         </h2>
         <small className="form-text text-muted mb-3">
           Are you a new user? Sign up below!

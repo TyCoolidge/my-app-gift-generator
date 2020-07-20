@@ -4,27 +4,32 @@ import React from "react";
 export default function IndividualGift(props) {
   return (
     <div>
-      <div className="mb-3 row">
+      <div className="row">
         <div className="col-4 col-sm-4 col-md-3">
           {/* TODO add linebreaks */}
-          <div className="containsImage fitToImageContainer">
-            <div className="">
-              <img alt="item" url={props.gift.photo} />
-            </div>
+          <div>
+            <a href={props.gift.url}>
+              <img
+                alt="item"
+                className="containsImage fitToImageContainer"
+                src={props.gift.photo}
+              />
+            </a>
           </div>
         </div>
         {/* fix format of text below */}
-        <div className="mt-3 giftInfoSize">
+        <div className="giftInfoSize">
           <div className="mb-2">
-            Name: {props.gift.title}
+            {props.gift.title}
             <br />
           </div>
           <div className="mb-2">
             {/* if too long truncate */}
-            Description:
+
             <div className="d-inline" style={{ fontSize: "16px" }}>
               {" "}
-              {props.gift.description}
+              {props.gift.description} &nbsp;
+              <a href={props.gift.url}>More info</a>
             </div>
             <br />
           </div>

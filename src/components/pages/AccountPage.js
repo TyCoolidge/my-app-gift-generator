@@ -49,11 +49,15 @@ class AccountPage extends React.Component {
   render() {
     return (
       <div className="container">
-        <div className="row mt-5">
-          <div className="col-12">
+        <div className="row mt-5"></div>
+        <div className="row mt-4">
+          <div className="col">
+            <Header />
+          </div>
+          <div className="col text-right mt-3">
             <Link
               to="/login-page"
-              className="float-right"
+              className=""
               onClick={() => {
                 this.logOutCurrentUser();
               }}
@@ -62,7 +66,6 @@ class AccountPage extends React.Component {
             </Link>
           </div>
         </div>
-        <Header />
         <div className="row mt-4">
           <div className="col-12">
             <h3 className="">My Account</h3>

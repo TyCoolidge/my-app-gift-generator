@@ -7,16 +7,19 @@ export default function LoginPage() {
   return (
     // Make Title and Logo a component
     <div className="container">
-      <div className="row my-5">
-        <Header />
-        {/* add logo */}
-        <div className="col-6 offset-3 mb-3">
-          <h5 className="text-center">Let's Find the Perfect Gift!</h5>
+      <div className="row mt-5">
+        <div className="col-12">
+          <div className="col-xl col-lg mx-4 col-md-12">
+            <div className="card-body">
+              <div className="row">
+                <Header />
+              </div>
+            </div>
+          </div>
         </div>
+        {/* <h5 className="col-12">Let's Find the Perfect Gift!</h5> */}
 
-        {/* new login card */}
-
-        <div className="col-12 mt-5">
+        <div className="col-12 mt-2">
           <div className="">
             <div className="card-body">
               <div className="row">
