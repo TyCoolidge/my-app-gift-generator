@@ -7,7 +7,7 @@
     "photo": "https://m.media-amazon.com/images/I/710037deVKL._AC_SS350_.jpg",
     "url": "https://www.amazon.com/Vitamix-E310-Explorian-Professional-Grade-Container/dp/B0758JHZM3/ref=sr_1_2?dchild=1&keywords=vitamix&qid=1594237685&sr=8-2",
     "description": "Variable Speed Control: Ten variable speeds allow you to refine every texture with culinary precision, from the smoothest purées to the heartiest soups.",
-    "gender": 3,
+    "gender": 1,
     "interest": 11,
     "age": 3,
     "price": 34995
@@ -20,7 +20,7 @@
     "photo": "https://images-na.ssl-images-amazon.com/images/I/51zk9hBKXqL._AC_SL1000_.jpg",
     "url": "https://www.amazon.com/Charger-RAVPower-Charging-Multiple-Compatible/dp/B00OQ19QYA?ref_=fsclp_pl_dp_1",
     "description": "Up to 6 Ports USB Charger: Euipped with up to 6-Ports, RAVPower USB Charging Station supports charging multiple devices at same time.",
-    "gender": 3,
+    "gender": 2,
     "interest": 3,
     "age": 3,
     "price": 2599
@@ -33,7 +33,7 @@
     "photo": "https://images-na.ssl-images-amazon.com/images/I/71UUDAPpKWL._AC_SL1500_.jpg",
     "url": "https://www.amazon.com/Exploding-Kittens-LLC-EKG-ORG1-1-Card/dp/B010TQY7A8/ref=zg_bs_toys-and-games_31?_encoding=UTF8&psc=1&refRID=ZGQMP12Q9AATTJW5D7XT",
     "description": "Exploding kittens is the perfect card game for adults, teens and kids who are into kittens and explosions and laser beams and sometimes goats. More than 9 million copies sold, breaking records in kids games, adult games and everything in-between.",
-    "gender": 3,
+    "gender": 1,
     "interest": 10,
     "age": 2,
     "price": 1999

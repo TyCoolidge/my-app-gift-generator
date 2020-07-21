@@ -70,81 +70,85 @@ class HomePage extends React.Component {
   }
   setDisplayedGifts() {
     const gifts = [...this.state.allGifts];
-    //price range end
+    let filteredGifts = gifts;
+
+    // Filter down filtereredGifts based on criteria below
+    // Then set state of displayedGifts: filteredGifts
+
     if (this.state.gender !== 0) {
       //if gender is selected
-      const filteredGifts = gifts.filter((gift) => {
+      filteredGifts = filteredGifts.filter((gift) => {
         return gift.gender === this.state.gender;
       });
-      this.setState({ displayedGifts: filteredGifts });
     }
-    if (this.state.age !== 0) {
-      //if age is selected
-      const filteredGifts = gifts.filter((gift) => {
-        return gift.age === this.state.age;
-      });
-      this.setState({ displayedGifts: filteredGifts });
-    }
-    if (this.state.interest !== 0) {
-      //if interest is selected
-      const filteredGifts = gifts.filter((gift) => {
-        return gift.interest === this.state.interest;
-      });
-      this.setState({ displayedGifts: filteredGifts });
-    }
-    if (this.state.price !== 0) {
-      //if price is selected
-      const filteredGifts = gifts.filter((gift) => {
-        return gift.price === this.state.price;
-      });
-      this.setState({ displayedGifts: filteredGifts });
-    } //price ranges start
-    if (this.state.price === 1) {
-      //if price is selected
-      const filteredGifts = gifts.filter((gift) => {
-        return gift.price < 2500;
-      });
-      this.setState({ displayedGifts: filteredGifts });
-    } else if (this.state.price === 2) {
-      //if price is selected
-      const filteredGifts = gifts.filter((gift) => {
-        return gift.price >= 2500 && gift.price <= 5000;
-      });
-      this.setState({ displayedGifts: filteredGifts });
-    } else if (this.state.price === 3) {
-      //if price is selected
-      const filteredGifts = gifts.filter((gift) => {
-        return gift.price > 5000 && gift.price <= 7500;
-      });
-      this.setState({ displayedGifts: filteredGifts });
-    } else if (this.state.price === 4) {
-      //if price is selected
-      const filteredGifts = gifts.filter((gift) => {
-        return gift.price > 7500 && gift.price <= 10000;
-      });
-      this.setState({ displayedGifts: filteredGifts });
-    } else if (this.state.price === 5) {
-      //if price is selected
-      const filteredGifts = gifts.filter((gift) => {
-        return gift.price > 10000 && gift.price <= 20000;
-      });
-      this.setState({ displayedGifts: filteredGifts });
-    } else if (this.state.price === 6) {
-      //if price is selected
-      const filteredGifts = gifts.filter((gift) => {
-        return gift.price > 20000;
-      });
-      this.setState({ displayedGifts: filteredGifts });
-    }
+    // if (this.state.age !== 0) {
+    //   //if age is selected
+    //   const filteredGifts = gifts.filter((gift) => {
+    //     return gift.age === this.state.age;
+    //   });
+    //   this.setState({ displayedGifts: filteredGifts });
+    // }
+    // if (this.state.interest !== 0) {
+    //   //if interest is selected
+    //   const filteredGifts = gifts.filter((gift) => {
+    //     return gift.interest === this.state.interest;
+    //   });
+    //   this.setState({ displayedGifts: filteredGifts });
+    // }
+    // if (this.state.price !== 0) {
+    //   //if price is selected
+    //   const filteredGifts = gifts.filter((gift) => {
+    //     return gift.price === this.state.price;
+    //   });
+    //   this.setState({ displayedGifts: filteredGifts });
+    // } //price ranges start
+    // if (this.state.price === 1) {
+    //   //if price is selected
+    //   const filteredGifts = gifts.filter((gift) => {
+    //     return gift.price < 2500;
+    //   });
+    //   this.setState({ displayedGifts: filteredGifts });
+    // } else if (this.state.price === 2) {
+    //   //if price is selected
+    //   const filteredGifts = gifts.filter((gift) => {
+    //     return gift.price >= 2500 && gift.price <= 5000;
+    //   });
+    //   this.setState({ displayedGifts: filteredGifts });
+    // } else if (this.state.price === 3) {
+    //   //if price is selected
+    //   const filteredGifts = gifts.filter((gift) => {
+    //     return gift.price > 5000 && gift.price <= 7500;
+    //   });
+    //   this.setState({ displayedGifts: filteredGifts });
+    // } else if (this.state.price === 4) {
+    //   //if price is selected
+    //   const filteredGifts = gifts.filter((gift) => {
+    //     return gift.price > 7500 && gift.price <= 10000;
+    //   });
+    //   this.setState({ displayedGifts: filteredGifts });
+    // } else if (this.state.price === 5) {
+    //   //if price is selected
+    //   const filteredGifts = gifts.filter((gift) => {
+    //     return gift.price > 10000 && gift.price <= 20000;
+    //   });
+    //   this.setState({ displayedGifts: filteredGifts });
+    // } else if (this.state.price === 6) {
+    //   //if price is selected
+    //   const filteredGifts = gifts.filter((gift) => {
+    //     return gift.price > 20000;
+    //   });
+    //   this.setState({ displayedGifts: filteredGifts });
+    // }
 
-    if (
-      this.state.gender === 0 &&
-      this.state.age === 0 &&
-      this.state.interest === 0 &&
-      this.state.price === 0
-    ) {
-      this.setState({ displayedGifts: this.state.allGifts });
-    }
+    // if (
+    //   this.state.gender === 0 &&
+    //   this.state.age === 0 &&
+    //   this.state.interest === 0 &&
+    //   this.state.price === 0
+    // ) {
+    //   this.setState({ displayedGifts: this.state.allGifts });
+    // }
+    this.setState({ displayedGifts: filteredGifts });
   }
 
   isUserLoggedIn() {
